@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff9ef">
+<title>CaféConFé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff9ef;--bg2:#fdf0d5;--card:#ffffff;--txt:#3b2f2f;--mut:#7a6a5d;--pri:#c98a1b;--pri2:#e5a93a;--acc:#3b82c4;--onpri:#ffffff;--line:rgba(90,60,20,.14);--line2:rgba(90,60,20,.3);--danger:#d64545;--ok:#2e9e62;--r:20px;--fd:'Playfair Display',Georgia,serif;--fb:'Nunito',system-ui,sans-serif;--sh:0 10px 30px rgba(90,60,20,.12)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--txt);line-height:1.5;min-height:100dvh;padding-bottom:calc(76px + env(safe-area-inset-bottom));overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
+a{color:var(--acc)}
+h1,h2,h3{font-family:var(--fd);line-height:1.2}
+[hidden]{display:none!important}
+.mut{color:var(--mut)}
+/* fondos */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none}
+body.f-rayos::before{background:conic-gradient(from 200deg at 50% -10%,transparent 0 8%,color-mix(in srgb,var(--pri2) 18%,transparent) 10% 14%,transparent 16% 24%,color-mix(in srgb,var(--pri2) 14%,transparent) 26% 30%,transparent 32% 42%,color-mix(in srgb,var(--pri2) 16%,transparent) 44% 47%,transparent 49%);animation:ray 14s ease-in-out infinite alternate}
+@keyframes ray{from{transform:rotate(-3deg) scale(1.1)}to{transform:rotate(3deg) scale(1.2)}}
+body.f-nubes::before{background:radial-gradient(60px 30px at 15% 12%,color-mix(in srgb,var(--card) 90%,transparent),transparent),radial-gradient(90px 40px at 70% 22%,color-mix(in srgb,var(--card) 85%,transparent),transparent),radial-gradient(70px 34px at 40% 48%,color-mix(in srgb,var(--card) 70%,transparent),transparent),radial-gradient(100px 44px at 85% 70%,color-mix(in srgb,var(--card) 80%,transparent),transparent);background-size:140% 100%;animation:cloud 60s linear infinite}
+@keyframes cloud{to{background-position:-140% 0}}
+body.f-estrellas::before{background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(1.5px 1.5px at 90px 80px,#ffe9a8,transparent),radial-gradient(2px 2px at 160px 20px,#fff,transparent),radial-gradient(1.5px 1.5px at 230px 120px,#cfe0ff,transparent),radial-gradient(2px 2px at 50px 150px,#fff,transparent);background-size:260px 180px;animation:twk 5s ease-in-out infinite alternate;opacity:.6}
+@keyframes twk{to{opacity:.25}}
+body.f-cruces::before{background-image:linear-gradient(var(--line) 2px,transparent 2px),linear-gradient(90deg,var(--line) 2px,transparent 2px);background-size:46px 46px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 70%);opacity:.5}
+/* cabecera */
+.hd{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-align:left}
+.brand svg,.brand img{width:44px;height:44px;flex:none;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.15))}
+.brand b{font-family:var(--fd);font-size:1.35rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:linear-gradient(90deg,var(--pri),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{display:block;color:var(--mut);font-size:.72rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip-u{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:.85rem}
+.av{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--bg2);display:grid;place-items:center;font-weight:800;color:var(--pri);flex:none;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+/* botones y campos */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;font-weight:800;background:var(--card);border:2px solid var(--line2);transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:linear-gradient(135deg,var(--pri2),var(--pri));color:var(--onpri);border-color:transparent;box-shadow:0 6px 16px color-mix(in srgb,var(--pri) 35%,transparent)}
+.btn.acc{background:var(--acc);color:#fff;border-color:transparent}
+.btn.danger{background:var(--danger);color:#fff;border-color:transparent}
+.btn.ghost{background:transparent}
+.btn.sm{padding:7px 13px;font-size:.85rem;border-radius:11px}
+.btn.block{display:flex;width:100%}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.fld{display:block;margin:10px 0}
+.fld>span{display:block;font-weight:700;font-size:.85rem;margin-bottom:4px;color:var(--mut)}
+input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=color]):not([type=range]),select,textarea{width:100%;padding:11px 13px;border-radius:13px;border:2px solid var(--line);background:var(--card);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--pri)}
+textarea{min-height:90px;resize:vertical}
+input[type=color]{width:100%;height:42px;border:2px solid var(--line);border-radius:12px;background:var(--card);padding:3px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.92rem}
+.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--pri);flex:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tb{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.fileb{position:relative;overflow:hidden;cursor:pointer}
+.fileb input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;padding:0;border:0}
+/* tarjetas */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin:12px 0}
+.hero{text-align:center;padding:34px 18px 26px;position:relative}
+.hero h1{font-size:clamp(2rem,8vw,3.2rem);margin:6px 0}
+.hero p{color:var(--mut);max-width:34em;margin:8px auto 18px;font-size:1.05rem}
+.hero .cup{width:92px;height:92px;margin:0 auto;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+.ver{text-align:center;padding:20px 18px;border-radius:var(--r);background:linear-gradient(135deg,color-mix(in srgb,var(--pri2) 18%,var(--card)),color-mix(in srgb,var(--acc) 12%,var(--card)));border:1px solid var(--line);margin:14px 0}
+.ver q{font-family:var(--fd);font-size:1.2rem;font-style:italic;display:block;quotes:"“" "”"}
+.ver cite{display:block;margin-top:8px;font-weight:800;color:var(--pri);font-style:normal}
+.steps{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.steps .card{margin:0;text-align:center}.steps .ic{font-size:2rem}
+.legal{white-space:pre-line;background:var(--bg2);border-radius:14px;padding:12px 14px;max-height:40dvh;overflow:auto;font-size:.92rem}
+/* personas */
+.filters{display:grid;gap:8px;grid-template-columns:repeat(2,1fr);margin:8px 0}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:620px){.people{grid-template-columns:repeat(3,1fr)}}@media(min-width:860px){.people{grid-template-columns:repeat(4,1fr)}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--sh);text-align:left;cursor:pointer;position:relative}
+.pc .ph{aspect-ratio:1;background:var(--bg2);display:grid;place-items:center;font-size:2.6rem;color:var(--pri);overflow:hidden}
+.pc .ph img{width:100%;height:100%;object-fit:cover}
+.pc .inf{padding:9px 11px}.pc b{display:block;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pc small{display:block;color:var(--mut);font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{position:absolute;top:8px;right:8px;width:13px;height:13px;border-radius:50%;background:var(--ok);border:2px solid #fff}
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.78rem;font-weight:700;background:color-mix(in srgb,var(--pri) 16%,transparent);color:var(--pri);margin:2px 3px 2px 0}
+.tag.b{background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:pointer;background:var(--bg2)}
+.gal .gi{position:relative}.gal .gi button{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:.8rem}
+.big-av{width:130px;height:130px;border-radius:50%;margin:0 auto 8px;overflow:hidden;border:4px solid var(--pri);background:var(--bg2);display:grid;place-items:center;font-size:3rem;color:var(--pri)}
+.big-av img{width:100%;height:100%;object-fit:cover}
+/* listas */
+.lst{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin:8px 0;cursor:pointer;text-align:left;width:100%}
+.lst .t{flex:1;min-width:0}.lst .t b{display:block}.lst .t small{display:block;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lst .ic{font-size:1.7rem;width:44px;text-align:center}
+.cn{background:var(--danger);color:#fff;border-radius:99px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:.75rem;font-weight:800;padding:0 6px}
+/* navegación inferior */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{flex:1;padding:8px 2px 7px;font-size:.7rem;font-weight:800;color:var(--mut);position:relative;display:flex;flex-direction:column;align-items:center;gap:1px}
+.tabs button i{font-style:normal;font-size:1.35rem}.tabs button.on{color:var(--pri)}
+.tabs .cn{position:absolute;top:3px;left:55%}
+/* modales */
+.ov{position:fixed;inset:0;z-index:100;background:rgba(30,20,10,.55);display:grid;place-items:end center;animation:fi .2s}
+@keyframes fi{from{opacity:0}}
+.box{background:var(--bg);width:100%;max-width:560px;max-height:92dvh;overflow:auto;border-radius:26px 26px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));position:relative;animation:up .3s cubic-bezier(.2,.9,.3,1)}
+@keyframes up{from{transform:translateY(40px)}}
+.ov.full .box{max-width:900px;height:100dvh;max-height:100dvh;border-radius:0}
+@media(min-width:700px){.ov{place-items:center}.box{border-radius:26px}.ov.full .box{height:94dvh;max-height:94dvh;border-radius:22px}}
+.box h2{padding-right:44px;margin-bottom:6px}
+.x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:var(--bg2);font-size:1.1rem;z-index:3}
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:400;background:var(--txt);color:var(--bg);padding:11px 18px;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}.toast.err{background:var(--danger);color:#fff}.toast.ok{background:var(--ok);color:#fff}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-3px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}
+/* chat */
+.chat{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column}
+.chat-h{display:flex;align-items:center;gap:10px;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));border-bottom:1px solid var(--line);background:var(--card)}
+.chat-h .t{flex:1;min-width:0;text-align:left}.chat-h .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-h .t small{color:var(--mut)}
+.chat-h button.ib{width:40px;height:40px;border-radius:50%;background:var(--bg2);font-size:1.15rem;flex:none}
+.msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(var(--bg),var(--bg2))}
+.m{max-width:82%;padding:8px 12px;border-radius:18px 18px 18px 5px;background:var(--card);border:1px solid var(--line);align-self:flex-start;overflow-wrap:anywhere;position:relative}
+.m.me{align-self:flex-end;background:linear-gradient(135deg,var(--pri2),var(--pri));color:var(--onpri);border-radius:18px 18px 5px 18px;border-color:transparent}
+.m.adm{align-self:center;max-width:92%;background:color-mix(in srgb,var(--acc) 16%,var(--card));border:1px dashed var(--acc);text-align:center}
+.m .who{font-weight:800;font-size:.76rem;color:var(--pri);cursor:pointer;display:block}.m.me .who{display:none}
+.m p{white-space:pre-wrap}.m time{display:block;font-size:.66rem;opacity:.65;text-align:right;margin-top:2px}
+.m .pic{display:block;margin-top:5px;padding:7px 11px;border-radius:11px;background:rgba(0,0,0,.12);font-weight:700;font-size:.85rem}
+.m img.full{display:block;max-width:100%;max-height:260px;border-radius:12px;margin-top:5px}
+.m .rep{position:absolute;top:2px;right:6px;font-size:.7rem;opacity:.0}.m:hover .rep,.m:focus-within .rep{opacity:.7}
+.inbar{display:flex;gap:8px;align-items:flex-end;padding:9px 10px;padding-bottom:calc(9px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--card)}
+.inbar textarea{min-height:44px;max-height:120px;height:44px;resize:none;padding:10px 13px;border-radius:22px}
+.inbar .ib{width:44px;height:44px;border-radius:50%;background:var(--bg2);font-size:1.2rem;flex:none}
+.inbar .send{background:linear-gradient(135deg,var(--pri2),var(--pri));color:var(--onpri)}
+.emo{display:flex;flex-wrap:wrap;gap:2px;padding:6px 10px;background:var(--card);border-top:1px solid var(--line)}.emo button{width:38px;height:38px;font-size:1.3rem;border-radius:10px}
+/* panel admin */
+.adm-nav{display:flex;gap:6px;overflow-x:auto;padding:8px 0 10px;scrollbar-width:none;margin-right:-4px}
+.adm-nav button{flex:none;padding:8px 14px;border-radius:99px;background:var(--bg2);font-weight:800;font-size:.85rem;white-space:nowrap}.adm-nav button.on{background:var(--pri);color:var(--onpri)}
+.adm h3{margin:18px 0 6px;font-size:1.1rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.stat b{display:block;font-size:1.5rem;font-family:var(--fd);color:var(--pri)}.stat small{color:var(--mut)}
+.reg{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:11px 12px;margin:8px 0}
+.reg header{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
+.pa{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pa button,.pa label{padding:6px 11px;border-radius:10px;background:var(--bg2);font-weight:700;font-size:.8rem}.pa .del{color:var(--danger)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.72rem;font-weight:800;background:var(--bg2)}
+.pill.activo,.pill.ok{background:var(--ok);color:#fff}.pill.pendiente{background:var(--pri);color:var(--onpri)}.pill.expulsado,.pill.err{background:var(--danger);color:#fff}
+.note{color:var(--mut);font-size:.88rem;margin:4px 0}
+.info{background:color-mix(in srgb,var(--acc) 12%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);border-radius:12px;padding:9px 12px;margin:8px 0;font-size:.9rem}
+.alerta{background:color-mix(in srgb,var(--danger) 14%,var(--card));border:2px solid var(--danger);border-radius:12px;padding:9px 12px;margin:8px 0;font-weight:700}
+.tema-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:8px 0 14px}
+.tema-b{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;border:2px solid var(--line);background:var(--card);text-align:left;font-weight:700;font-size:.82rem}.tema-b.on{border-color:var(--pri)}
+.tema-b i{display:flex;height:22px;border-radius:7px;overflow:hidden;border:1px solid var(--line2)}.tema-b i s{flex:1}
+.color-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.chips-sel{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chips-sel button{padding:6px 12px;border-radius:99px;border:2px solid var(--line);font-weight:700;font-size:.82rem;background:var(--card)}.chips-sel button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+.pfi{position:relative;display:inline-block;margin:4px}.pfi img{width:76px;height:76px;object-fit:cover;border-radius:12px;border:2px solid var(--line)}.pfi button{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;background:var(--danger);color:#fff;font-size:.7rem}
+.foot{text-align:center;color:var(--mut);font-size:.82rem;padding:24px 16px 10px;position:relative}
+#secret{position:absolute;right:6px;bottom:2px;width:42px;height:42px;opacity:.07;border-radius:12px}#secret:hover,#secret:focus-visible{opacity:.7}
+/* arranque, mantenimiento y avisos */
+.boot{position:fixed;inset:0;z-index:300;display:grid;place-items:center;text-align:center;padding:26px;background:radial-gradient(120% 90% at 20% 0,#fff3d6,#fdf0d5 55%,#f7dfae);color:#3b2f2f}
+.boot h1{font-size:clamp(2.2rem,10vw,3.2rem);background:linear-gradient(90deg,#c98a1b,#3b82c4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.boot svg{width:96px;height:96px;margin:0 auto 10px;animation:float 3s ease-in-out infinite;display:block}
+.boot p{margin:8px 0}.boot .btn{margin-top:14px}
+.mant{position:fixed;inset:0;z-index:250;background:var(--bg);display:grid;place-items:center;text-align:center;padding:28px;overflow:auto}
+.mant .me{font-size:4rem}.mant h1{margin:8px 0}.mant p{color:var(--mut);white-space:pre-line;max-width:30em;margin:auto}
+#secret2{position:fixed;right:8px;bottom:8px;width:44px;height:44px;border-radius:12px;opacity:.07}
+.mantbar{position:fixed;left:0;right:0;top:64px;z-index:55;background:var(--danger);color:#fff;font-weight:700;text-align:center;padding:6px 10px;font-size:.85rem}
+.mantbar button{margin-left:8px;background:rgba(255,255,255,.25);border-radius:8px;padding:3px 10px;font-weight:800;color:#fff}
+.bub{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:70;max-width:min(340px,calc(100vw - 28px));touch-action:none;cursor:grab;animation:float 4s ease-in-out infinite}
+.bub.drag{animation:none;cursor:grabbing}
+.nx{position:fixed;top:70px;right:12px;z-index:58;display:grid;gap:10px;width:min(340px,calc(100vw - 24px));max-height:calc(100dvh - 170px);overflow:auto;pointer-events:none;justify-items:end}
+.nx>*{pointer-events:auto;animation:nxin .4s cubic-bezier(.2,1.2,.4,1)}@keyframes nxin{from{transform:translateX(40px);opacity:0}}
+.bm{position:relative;max-width:min(340px,calc(100vw - 28px));padding:14px 40px 14px 16px;box-shadow:0 12px 30px rgba(0,0,0,.3);overflow-wrap:anywhere}
+.bm .bx{position:absolute;right:10px;top:10px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.25);color:inherit;font-size:.8rem}
+.bm-t{font-weight:800;margin-bottom:4px}.bm-p{white-space:pre-line;font-weight:600}
+.bm.s{font-size:.85rem}.bm.m{font-size:1rem}.bm.l{font-size:1.25rem}
+.bm-img{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:8px;cursor:zoom-in}
+.bm audio{display:block;width:100%;margin-top:8px;height:40px}
+.bm-link{margin-top:10px;background:rgba(0,0,0,.2);color:inherit;border:2px solid currentColor;display:inline-flex;padding:6px 12px;border-radius:11px;font-weight:800;text-decoration:none;font-size:.85rem}
+.bm.f-bocadillo{border-radius:22px 22px 6px 22px}.bm.f-redonda{border-radius:26px}.bm.f-cuadrada{border-radius:4px}
+.bm.f-pildora{border-radius:999px;padding:16px 44px 16px 26px;text-align:center}
+.bm.f-nube{border-radius:50% 50% 46% 54% / 60% 55% 45% 40%;padding:28px 44px 28px 30px;text-align:center}
+.bm.f-etiqueta{border-radius:6px;clip-path:polygon(0 0,93% 0,100% 50%,93% 100%,0 100%);padding-right:48px}
+.bm-prev{padding:14px;border-radius:14px;background:repeating-conic-gradient(color-mix(in srgb,var(--txt) 6%,transparent) 0 25%,transparent 0 50%) 0 0/20px 20px;display:grid;justify-items:start;overflow:hidden}
+.zm{position:fixed;inset:0;z-index:350;background:rgba(0,0,0,.94);display:grid;place-items:center;touch-action:none}
+.zm img{max-width:100%;max-height:100%;object-fit:contain}.zm .x{background:rgba(255,255,255,.2);color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="boot" id="boot"><div><div id="btLogo"></div><h1>CaféConFé</h1><p id="btTxt">Preparando tu café…</p><small id="btSub" class="mut"></small><br><button id="btRe" class="btn pri" data-act="boot-re" hidden>🔄 Reintentar</button></div></div>
+<div class="mantbar" id="mantBar" hidden></div>
+<div class="mantbar" id="offbar" style="background:#3a2b78" hidden>📡 Sin conexión · estás viendo la última versión guardada</div>
+<div class="mant" id="mant" hidden><div><div class="me" id="mantE">🛠️</div><h1 id="mantT"></h1><p id="mantP"></p></div><button id="secret2" data-act="admin" aria-label="Acceso del administrador">⚙</button></div>
+<header class="hd"><button class="brand" id="brand" data-act="tab" data-id="inicio" aria-label="Inicio"></button><span id="userchip"></span></header>
+<main id="app"></main>
+<footer class="foot">Hecho con fe y amor 🕊️ · <span id="fname">CaféConFé</span><button id="secret" data-act="admin" aria-label="Acceso del administrador">⚙</button></footer>
+<nav class="tabs" id="tabs" hidden></nav>
+<div class="bub" id="bub" hidden></div><div class="nx" id="nx"></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+/* =====================================================================
+   CaféConFé · conocer cristianos
+   Supabase propio de CaféConFé; contraseña de administrador definida en cafeconfe.sql
+   ===================================================================== */
+const CFG = {
+  SB_URL: 'https://lizlkmeqtibyamikvqoz.supabase.co',
+  SB_KEY: 'sb_publishable_R3b9brH9mrEoDeTKDj0ouA_kEvshv73',   // clave pública (publishable/anon)
+  GH_USER: '', GH_REPO: '', GH_BRANCH: 'main'                 // opcional: se detecta solo en GitHub Pages
+};
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const jget = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const clone = o => JSON.parse(JSON.stringify(o));
+const hexOk = c => /^#[0-9a-fA-F]{3,8}$/.test(c || '') ? c : '';
+const safeUrl = u => { u = String(u || '').trim(); if (/^(https?:|tel:|mailto:)/i.test(u)) return u; if (/^[a-z][a-z0-9+.-]*:/i.test(u)) return '#'; return u ? 'https://' + u : '#'; };
+const b64u8 = b => Uint8Array.from(atob(b.replace(/\s/g, '')), c => c.charCodeAt(0));
+const u8b64 = u => { let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+const hora = iso => { const d = new Date(iso), h = d.toTimeString().slice(0, 5); return d.toDateString() === new Date().toDateString() ? h : `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')} ${h}`; };
+const ini = n => esc((n || '?').trim().charAt(0).toUpperCase());
+const merge = (a, b) => { for (const k in b) { if (b[k] && typeof b[k] === 'object' && !Array.isArray(b[k])) a[k] = merge(a[k] && typeof a[k] === 'object' && !Array.isArray(a[k]) ? a[k] : {}, b[k]); else if (a[k] === undefined) a[k] = clone(b[k]); } return a; };
+
+/* ---------- Supabase ---------- */
+const sbH = () => { const h = { apikey: CFG.SB_KEY, 'Content-Type': 'application/json' }; if (!CFG.SB_KEY.startsWith('sb_')) h.Authorization = 'Bearer ' + CFG.SB_KEY; return h; };
+async function rpc(fn, args) {
+  let r;
+  try { r = await fetch(CFG.SB_URL + '/rest/v1/rpc/' + fn, { method: 'POST', headers: sbH(), body: JSON.stringify(args || {}) }); }
+  catch (e) { const er = new Error('Sin conexión'); er.red = true; throw er; }
+  const t = await r.text();
+  if (!r.ok) { let m = t; try { m = JSON.parse(t).message || t; } catch { } throw new Error(m); }
+  return t ? JSON.parse(t) : null;
+}
+let TOKEN = localStorage.getItem('cf_tok') || '', ME = null, ADMIN = null;
+async function api(fn, args) {
+  try { return await rpc(fn, { p_token: TOKEN, ...(args || {}) }); }
+  catch (e) {
+    const m = e.message || '';
+    if (/SESION/.test(m)) { cerrarSesion(); throw new Error('Tu sesión terminó. Entra de nuevo.'); }
+    if (/EXPULSADO/.test(m)) { cerrarSesion(); pantallaSuspendida(''); throw new Error('Tu cuenta fue suspendida'); }
+    if (/PENDIENTE/.test(m)) { cerrarSesion(); throw new Error('Tu cuenta espera la aprobación del administrador'); }
+    throw e;
+  }
+}
+const adm = (fn, args) => rpc(fn, { p_clave: ADMIN.clave, ...(args || {}) }).catch(e => { if (/No autorizado/.test(e.message)) { ADMIN = null; sessionStorage.removeItem('cf_adm'); } throw e; });
+
+/* ---------- interfaz básica ---------- */
+let toastT;
+function toast(m, t = '') { const e = $('#toast'); e.textContent = m; e.className = 'toast on ' + t; clearTimeout(toastT); toastT = setTimeout(() => e.className = 'toast ' + t, 3600); }
+function openModal(html, cls = '') {
+  const o = document.createElement('div'); o.className = 'ov ' + cls; o.innerHTML = `<div class="box">${html}</div>`;
+  o.addEventListener('mousedown', e => { if (e.target === o && !cls.includes('full')) closeModal(o); });
+  document.body.appendChild(o); document.body.style.overflow = 'hidden'; return o;
+}
+function closeModal(o) { if (!o) return; o.remove(); if (!$('.ov')) document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { const z = $('.zm'); if (z) return z.remove(); const o = $$('.ov').pop(); if (o) closeModal(o); } });
+function zoomImg(src) { const z = document.createElement('div'); z.className = 'zm'; z.innerHTML = `<img src="${esc(src)}" alt=""><button class="x" aria-label="Cerrar">✕</button>`; z.onclick = () => z.remove(); document.body.appendChild(z); }
+function comprimir(file, max = 800, q = .75) {
+  return new Promise((res, rej) => {
+    const im = new Image(), u = URL.createObjectURL(file);
+    im.onload = () => { const k = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.max(1, Math.round(im.width * k)); c.height = Math.max(1, Math.round(im.height * k)); const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); res(c.toDataURL('image/jpeg', q)); };
+    im.onerror = () => rej(new Error('No se pudo leer la imagen')); im.src = u;
+  });
+}
+function cuadrada(file, lado, q) {
+  return new Promise((res, rej) => {
+    const im = new Image(), u = URL.createObjectURL(file);
+    im.onload = () => { const s = Math.min(im.width, im.height), c = document.createElement('canvas'); c.width = c.height = lado; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, lado, lado); x.drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, lado, lado); URL.revokeObjectURL(u); res(c.toDataURL('image/jpeg', q)); };
+    im.onerror = () => rej(new Error('No se pudo leer la imagen')); im.src = u;
+  });
+}
+const avatarHTML = (thumb, nombre, cls = 'av') => `<span class="${cls}">${thumb ? `<img src="${esc(thumb)}" alt="">` : ini(nombre)}</span>`;
+
+/* =====================================================================
+   CONFIGURACIÓN, TEMAS Y APARIENCIA
+   ===================================================================== */
+const PROVINCIAS = ['Pinar del Río', 'Artemisa', 'La Habana', 'Mayabeque', 'Matanzas', 'Cienfuegos', 'Villa Clara', 'Sancti Spíritus', 'Ciego de Ávila', 'Camagüey', 'Las Tunas', 'Holguín', 'Granma', 'Santiago de Cuba', 'Guantánamo', 'Isla de la Juventud', 'Otro país'];
+const CIVILES = ['Soltero/a', 'Divorciado/a', 'Viudo/a'];
+const BUSCAS = ['Amistad cristiana', 'Noviazgo', 'Matrimonio', 'Compañeros de oración'];
+const GUSTOS = ['Música cristiana', 'Leer la Biblia', 'Orar', 'Cantar', 'Tocar un instrumento', 'Servir en la iglesia', 'Evangelismo', 'Estudio bíblico', 'Deporte', 'Cocinar', 'Viajar', 'Naturaleza', 'Cine', 'Leer', 'Familia', 'Niños', 'Voluntariado', 'Tecnología'];
+const DEFCONF = {
+  nombre: 'CaféConFé', lema: 'Conoce hermanos en Cristo', tema: 'amanecer', fondo: 'rayos', fuente: 'elegante', logo: '',
+  custom: { bg: '#fff9ef', bg2: '#fdf0d5', card: '#ffffff', txt: '#3b2f2f', mut: '#7a6a5d', pri: '#c98a1b', acc: '#3b82c4' },
+  bienvenida: 'Un lugar sano para conocer cristianos, conversar, orar juntos y hacer amistades que edifican.',
+  versiculos: [
+    'Porque de tal manera amó Dios al mundo, que ha dado á su Hijo unigénito, para que todo aquel que en él creyere, no se pierda, mas tenga vida eterna. — Juan 3:16',
+    'Jehová es mi pastor; nada me faltará. — Salmos 23:1',
+    'Todo lo puedo en Cristo que me fortalece. — Filipenses 4:13',
+    'Venid á mí todos los que estáis trabajados y cargados, y yo os haré descansar. — Mateo 11:28',
+    'Lámpara es á mis pies tu palabra, y lumbrera á mi camino. — Salmos 119:105',
+    'Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que fueres. — Josué 1:9',
+    'El que halló esposa halló el bien, y alcanzó la benevolencia de Jehová. — Proverbios 18:22',
+    'Mejores son dos que uno; porque tienen mejor paga de su trabajo. — Eclesiastés 4:9',
+    'No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo. — Isaías 41:10'
+  ],
+  reglas: 'Esta es una comunidad cristiana. Para cuidarnos entre todos:\n\n1. Respeto y amor: nada de insultos, burlas ni groserías.\n2. Nada de contenido sexual, vulgar o que no edifique.\n3. Solo mayores de 18 años.\n4. No pidas ni envíes dinero, claves o datos bancarios. Cuidado con las estafas.\n5. No compartas datos privados de otras personas.\n6. Si algo te incomoda, usa Bloquear o Reportar.\n7. La administración puede revisar las conversaciones para cuidar a la comunidad y puede suspender cuentas que rompan estas reglas.',
+  registro: true, aprobar: false, fotos: true, max_fotos: 10, edad_min: 18, palabras: [],
+  salas: [
+    { id: 'general', icono: '☕', nombre: 'Café general', desc: 'Conversa con todos los hermanos' },
+    { id: 'oracion', icono: '🙏', nombre: 'Peticiones de oración', desc: 'Pide y ora por otros' },
+    { id: 'estudio', icono: '📖', nombre: 'Estudio bíblico', desc: 'Compartimos la Palabra' },
+    { id: 'jovenes', icono: '🎶', nombre: 'Jóvenes', desc: 'Alabanza, amistad y diversión sana' }
+  ],
+  denominaciones: ['Católica', 'Bautista', 'Pentecostal', 'Asambleas de Dios', 'Adventista', 'Metodista', 'Presbiteriana', 'Anglicana / Episcopal', 'Luterana', 'Ortodoxa', 'Evangélica', 'Cristiana sin denominación', 'Otra'],
+  mant: { activo: false, emoji: '🛠️', titulo: 'Estamos mejorando CaféConFé', texto: 'Volvemos muy pronto. ¡Gracias por tu paciencia!' },
+  nota: { activa: false, texto: '', id: '', titulo: '📢 Aviso', color: '#c98a1b', txt: '#ffffff', fuente: '', forma: 'bocadillo', tam: 'm', img: '', audio: '', enlace: '', enlaceTxt: '' },
+  notifs: []
+};
+let CONF = merge(jget('cf_conf', {}), clone(DEFCONF));
+const THEMES = {
+  amanecer: { name: '🌅 Amanecer', bg: '#fff9ef', bg2: '#fdf0d5', card: '#ffffff', txt: '#3b2f2f', mut: '#7a6a5d', pri: '#c98a1b', pri2: '#e5a93a', acc: '#3b82c4', onpri: '#ffffff' },
+  cielo: { name: '☁️ Cielo', bg: '#f2f8ff', bg2: '#e1eefc', card: '#ffffff', txt: '#14304f', mut: '#587091', pri: '#2f80ed', pri2: '#5aa0ff', acc: '#e0a82e', onpri: '#ffffff' },
+  paz: { name: '🌿 Paz', bg: '#f3faf4', bg2: '#e2f3e6', card: '#ffffff', txt: '#1d3a2a', mut: '#5b7a69', pri: '#2e8b57', pri2: '#4fb27a', acc: '#d4a017', onpri: '#ffffff' },
+  rosa: { name: '🌸 Rosa', bg: '#fff5f7', bg2: '#fde3ea', card: '#ffffff', txt: '#4a2433', mut: '#8a5d6e', pri: '#d6537a', pri2: '#ee7b9d', acc: '#8e6bbf', onpri: '#ffffff' },
+  real: { name: '👑 Real', bg: '#f6f3ff', bg2: '#e8e1fb', card: '#ffffff', txt: '#2c2250', mut: '#6d6590', pri: '#6c4bd1', pri2: '#8f73ea', acc: '#e0a82e', onpri: '#ffffff' },
+  cafe: { name: '☕ Café', bg: '#f5ebe0', bg2: '#ead7c1', card: '#fffaf3', txt: '#3e2a1c', mut: '#7d6652', pri: '#8b5a2b', pri2: '#b27a41', acc: '#c9a227', onpri: '#ffffff' },
+  clasico: { name: '🕊️ Blanco y azul', bg: '#ffffff', bg2: '#eef4fb', card: '#ffffff', txt: '#12294a', mut: '#5b6f8c', pri: '#1d4e89', pri2: '#3b78c4', acc: '#f0b429', onpri: '#ffffff' },
+  rojoblanco: { name: '❤️ Rojo y blanco', bg: '#ffffff', bg2: '#ffecec', card: '#fff7f7', txt: '#2b0b0e', mut: '#7a4a4f', pri: '#d90429', pri2: '#ef233c', acc: '#8d0801', onpri: '#ffffff' },
+  negroblanco: { name: '⚪ Blanco y negro', bg: '#ffffff', bg2: '#efefef', card: '#fafafa', txt: '#0a0a0a', mut: '#555555', pri: '#111111', pri2: '#333333', acc: '#666666', onpri: '#ffffff' },
+  noche: { name: '🌌 Noche estrellada', bg: '#0d1530', bg2: '#16224a', card: '#18244d', txt: '#eef2ff', mut: '#9fb0dd', pri: '#f5c542', pri2: '#ffd96b', acc: '#7aa2ff', onpri: '#1a1400' },
+  vino: { name: '🍷 Vino y oro', bg: '#2a0f1a', bg2: '#3a1624', card: '#43192a', txt: '#fdeff3', mut: '#d0a3b2', pri: '#e5b84b', pri2: '#f3cf74', acc: '#ff8aa1', onpri: '#2a1a00' },
+  rojonegro: { name: '🖤 Rojo y negro', bg: '#0b0b0b', bg2: '#1a0c0e', card: '#221013', txt: '#ffffff', mut: '#d1a3a8', pri: '#e10600', pri2: '#ff4b44', acc: '#ff6b6b', onpri: '#ffffff' }
+};
+const onColor = hex => { let h = String(hex || '#000').replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join(''); const n = parseInt(h.slice(0, 6), 16) || 0; return (0.299 * (n >> 16 & 255) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) / 255 > .6 ? '#1a1203' : '#ffffff'; };
+const FONTS = { elegante: "'Playfair Display',Georgia,serif", manuscrita: "'Dancing Script','Brush Script MT',cursive", moderna: "'Poppins','Nunito',system-ui,sans-serif", clasica: "Georgia,'Times New Roman',serif" };
+function temaDe(c) {
+  if (c.tema === 'personalizado') { const u = c.custom || {}; return { bg: hexOk(u.bg) || '#fff9ef', bg2: hexOk(u.bg2) || '#fdf0d5', card: hexOk(u.card) || '#fff', txt: hexOk(u.txt) || '#3b2f2f', mut: hexOk(u.mut) || '#7a6a5d', pri: hexOk(u.pri) || '#c98a1b', pri2: `color-mix(in srgb,${hexOk(u.pri) || '#c98a1b'} 70%,#fff)`, acc: hexOk(u.acc) || '#3b82c4', onpri: onColor(hexOk(u.pri) || '#c98a1b') }; }
+  return THEMES[c.tema] || THEMES.amanecer;
+}
+function pintarTema(t, fondo, fuente) {
+  const r = document.documentElement.style;
+  for (const k of ['bg', 'bg2', 'card', 'txt', 'mut', 'pri', 'pri2', 'acc', 'onpri']) r.setProperty('--' + k, t[k]);
+  const dark = onColor(t.bg) === '#ffffff';
+  r.setProperty('--line', dark ? 'rgba(255,255,255,.16)' : 'rgba(60,40,10,.14)'); r.setProperty('--line2', dark ? 'rgba(255,255,255,.34)' : 'rgba(60,40,10,.3)');
+  r.setProperty('--sh', dark ? '0 10px 30px rgba(0,0,0,.35)' : '0 10px 30px rgba(90,60,20,.12)');
+  r.setProperty('--fd', FONTS[fuente] || FONTS.elegante);
+  document.body.className = document.body.className.replace(/\bf-\S+/g, '').trim() + ' f-' + (fondo || 'rayos');
+  $('meta[name=theme-color]').content = t.bg;
+}
+const LOGO_SVG = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M31 3v17M23 10h16" stroke="#e0a21f" stroke-width="4.5" stroke-linecap="round"/><path d="M11 27h36v10a15 15 0 0 1-15 15h-6A15 15 0 0 1 11 37z" fill="#c98a1b"/><path d="M47 30h3.5a6.5 6.5 0 0 1 0 13H46" fill="none" stroke="#c98a1b" stroke-width="3.4" stroke-linecap="round"/><ellipse cx="29" cy="56" rx="23" ry="3.4" fill="#3b82c4" opacity=".8"/><path d="M20 35q4 4 9 0t9 0" stroke="#fff" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"/></svg>`;
+function aplicarConf() {
+  pintarTema(temaDe(CONF), CONF.fondo, CONF.fuente);
+  const logo = CONF.logo ? `<img src="${esc(CONF.logo)}" alt="Logo">` : LOGO_SVG;
+  $('#brand').innerHTML = `${logo}<span style="min-width:0"><b>${esc(CONF.nombre)}</b><small>${esc(CONF.lema)}</small></span>`;
+  document.title = CONF.nombre; $('#fname').textContent = CONF.nombre;
+  renderMant(); renderNota(); renderNx();
+}
+async function cargarConf() {
+  try {
+    const p = await rpc('cf_publico');
+    CONF = merge(p || {}, clone(DEFCONF)); delete CONF.hora;
+    localStorage.setItem('cf_conf', JSON.stringify(CONF)); NETFAIL = false;
+  } catch (e) { if (e.red) NETFAIL = true; }
+  aplicarConf(); renderBoot();
+}
+const versiculoHoy = () => { const L = (CONF.versiculos || []).filter(Boolean); if (!L.length) return null; const d = Math.floor(Date.now() / 864e5), t = L[d % L.length], i = t.lastIndexOf('—'); return i > 0 ? [t.slice(0, i).trim(), t.slice(i + 1).trim()] : [t, '']; };
+
+/* ---------- arranque, sin conexión y mantenimiento ---------- */
+let NETFAIL = false, LISTO = false;
+function renderBoot() {
+  const b = $('#boot'); if (!b) return;
+  const tiene = !!localStorage.getItem('cf_conf');
+  if (LISTO && (!NETFAIL || tiene)) { b.hidden = true; $('#offbar').hidden = !NETFAIL; return; }
+  b.hidden = false;
+  const off = LISTO && NETFAIL;
+  $('#btTxt').textContent = off ? 'Sin conexión' : 'Preparando tu café…';
+  $('#btSub').textContent = off ? 'Revisa tu internet o tus datos móviles. En cuanto vuelva la conexión, se abre sola.' : '';
+  $('#btRe').hidden = !off;
+}
+const mantActiva = () => !!(CONF.mant && CONF.mant.activo) && !ADMIN;
+function renderMant() {
+  const M = CONF.mant || {}, on = !!M.activo;
+  $('#mant').hidden = !(on && !ADMIN); $('#mantBar').hidden = !(on && ADMIN);
+  if (on) { $('#mantE').textContent = M.emoji || '🛠️'; $('#mantT').textContent = M.titulo || ''; $('#mantP').textContent = M.texto || ''; }
+  $('#mantBar').innerHTML = on && ADMIN ? '⏸ La página está en mantenimiento: los visitantes solo ven el cartel. <button data-act="mn-off">Reanudar</button>' : '';
+}
+
+/* =====================================================================
+   AVISOS: burbuja que se mueve y se quita + notificaciones (como en la tienda)
+   ===================================================================== */
+const FUENTES = [['', 'Normal'], ["'Nunito',sans-serif", 'Redonda'], ["Georgia,serif", 'Elegante'], ["'Courier New',monospace", 'Máquina de escribir'], ["'Comic Sans MS','Comic Neue',cursive", 'Divertida'], ["'Brush Script MT','Dancing Script',cursive", 'Manuscrita'], ["Impact,'Arial Black',sans-serif", 'Grande y fuerte']];
+const FORMAS = [['bocadillo', '💬 Bocadillo'], ['redonda', '⭕ Redondeada'], ['cuadrada', '⬜ Cuadrada'], ['pildora', '💊 Píldora'], ['nube', '☁️ Nube'], ['etiqueta', '🏷️ Etiqueta']];
+const TAMS = [['s', 'Pequeño'], ['m', 'Mediano'], ['l', 'Grande']];
+const EMOJIS = ['🙏', '✝️', '🕊️', '❤️', '😊', '😇', '🙌', '🎶', '📖', '🔥', '🎉', '⭐', '☕', '🌅', '✨', '💒', '🌹', '👏', '🤗', '📢', '🎁', '📍', '🕒', '🆕'];
+const hayMsg = n => !!(n && (n.texto || n.titulo || n.img || n.audio || n.enlace));
+function burbuja(m, extra = '') {
+  const f = FORMAS.some(x => x[0] === m.forma) ? m.forma : 'bocadillo', t = TAMS.some(x => x[0] === m.tam) ? m.tam : 'm', fu = FUENTES.some(x => x[0] === m.fuente) ? m.fuente : '';
+  return `<div class="bm f-${f} ${t}" style="background:${hexOk(m.color) || '#c98a1b'};color:${hexOk(m.txt) || '#ffffff'}${fu ? ';font-family:' + esc(fu) : ''}">${extra}${m.titulo ? `<div class="bm-t">${esc(m.titulo)}</div>` : ''}${m.texto ? `<p class="bm-p">${esc(m.texto)}</p>` : ''}${m.img ? `<img class="bm-img" src="${esc(m.img)}" data-act="zoom" alt="Imagen del aviso">` : ''}${m.audio ? `<audio controls preload="none" src="${esc(m.audio)}"></audio>` : ''}${m.enlace ? `<a class="bm-link" href="${esc(safeUrl(m.enlace))}" target="_blank" rel="noopener">${esc(m.enlaceTxt || 'Abrir enlace')} ↗</a>` : ''}</div>`;
+}
+let NPOS = jget('cf_nota_pos', null), NXD = jget('cf_nx', []);
+function posNota() {
+  const el = $('#bub'); if (!NPOS) { el.style.left = el.style.top = el.style.right = el.style.bottom = ''; return; }
+  el.style.left = Math.min(Math.max(0, NPOS.x * innerWidth), Math.max(0, innerWidth - el.offsetWidth)) + 'px'; el.style.top = Math.min(Math.max(0, NPOS.y * innerHeight), Math.max(0, innerHeight - el.offsetHeight)) + 'px'; el.style.right = el.style.bottom = 'auto';
+}
+function renderNota() {
+  const n = CONF.nota, el = $('#bub');
+  if (!(n.activa && hayMsg(n)) || localStorage.getItem('cf_nota') === n.id || mantActiva()) { el.hidden = true; el.dataset.sig = ''; el.innerHTML = ''; return; }
+  el.hidden = false; const sig = JSON.stringify(n);
+  if (el.dataset.sig !== sig) { el.dataset.sig = sig; el.innerHTML = burbuja(n, '<button class="bx" data-act="nota-x" aria-label="Quitar aviso">✕</button>'); }
+  posNota();
+}
+(function () {
+  const el = $('#bub'); let sx = 0, sy = 0, ox = 0, oy = 0, on = false, pid = null;
+  el.addEventListener('pointerdown', e => { if (e.target.closest('button,a,audio,img')) return; const r = el.getBoundingClientRect(); sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top; on = false; pid = e.pointerId; try { el.setPointerCapture(pid); } catch { } });
+  el.addEventListener('pointermove', e => { if (pid !== e.pointerId) return; const dx = e.clientX - sx, dy = e.clientY - sy; if (!on && Math.hypot(dx, dy) < 6) return; on = true; el.classList.add('drag'); el.style.left = Math.min(Math.max(0, ox + dx), Math.max(0, innerWidth - el.offsetWidth)) + 'px'; el.style.top = Math.min(Math.max(0, oy + dy), Math.max(0, innerHeight - el.offsetHeight)) + 'px'; el.style.right = el.style.bottom = 'auto'; });
+  const fin = e => { if (pid !== e.pointerId) return; pid = null; el.classList.remove('drag'); if (on) { NPOS = { x: (parseFloat(el.style.left) || 0) / innerWidth, y: (parseFloat(el.style.top) || 0) / innerHeight }; localStorage.setItem('cf_nota_pos', JSON.stringify(NPOS)); } on = false; };
+  el.addEventListener('pointerup', fin); el.addEventListener('pointercancel', fin);
+  addEventListener('resize', () => { if (!el.hidden) posNota(); });
+})();
+function renderNx() {
+  const box = $('#nx'), L = mantActiva() ? [] : (CONF.notifs || []).filter(n => n.activa && hayMsg(n) && !NXD.includes(n.id));
+  const sig = JSON.stringify(L); if (box.dataset.sig === sig) return; box.dataset.sig = sig;
+  box.innerHTML = L.map(n => burbuja(n, `<button class="bx" data-act="nx-x" data-id="${esc(n.id)}" aria-label="Quitar">✕</button>`)).join('');
+}
+
+/* =====================================================================
+   SESIÓN: entrar, registrarse, salir
+   ===================================================================== */
+const opts = (L, sel) => L.map(x => `<option ${x === sel ? 'selected' : ''}>${esc(x)}</option>`).join('');
+async function cargarYo() { ME = await api('cf_yo'); return ME; }
+function cerrarSesion() { TOKEN = ''; ME = null; localStorage.removeItem('cf_tok'); cerrarChat(); render(); }
+function pantallaSuspendida(motivo) {
+  openModal(`<h2>Cuenta suspendida</h2><p style="margin:10px 0">Tu cuenta fue suspendida por la administración${motivo ? ': <b>' + esc(motivo) + '</b>' : ''}.</p><p class="note">Si crees que fue un error, comunícate con el administrador.</p><button class="btn pri block" data-act="cerrar">Entendido</button>`);
+}
+function loginModal() {
+  const m = openModal(`<button class="x" data-act="cerrar" aria-label="Cerrar">✕</button><h2>Entrar a ${esc(CONF.nombre)}</h2><p class="note">Bienvenido de nuevo, hermano/a 🙏</p>
+    <label class="fld"><span>Usuario</span><input id="lg-user" autocomplete="username" autocapitalize="none"></label>
+    <label class="fld"><span>Contraseña</span><input id="lg-pass" type="password" autocomplete="current-password"></label>
+    <button class="btn pri block" data-act="login-ok">Entrar</button>
+    <p style="text-align:center;margin-top:14px" class="note">¿No tienes cuenta? <a href="#" data-act="reg-abrir">Regístrate</a></p>`);
+  $('#lg-pass', m).addEventListener('keydown', e => { if (e.key === 'Enter') $('[data-act=login-ok]', m).click(); });
+  setTimeout(() => $('#lg-user', m).focus(), 100);
+}
+async function hacerLogin(btn) {
+  const u = $('#lg-user').value.trim(), p = $('#lg-pass').value;
+  if (!u || !p) return toast('Escribe tu usuario y contraseña', 'err');
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Entrando…';
+  try {
+    const r = await rpc('cf_entrar', { p_usuario: u, p_pass: p });
+    TOKEN = r.token; localStorage.setItem('cf_tok', TOKEN); await cargarYo(); closeModal(btn.closest('.ov')); VIEW = 'inicio'; render(); toast('¡Bienvenido/a, ' + ME.nombre + '! 🙏', 'ok'); iniciarPulso();
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Entrar'; const m = e.message || '';
+    if (m.startsWith('EXPULSADO')) { closeModal(btn.closest('.ov')); pantallaSuspendida(m.split(':').slice(1).join(':')); }
+    else if (/PENDIENTE/.test(m)) toast('Tu cuenta espera la aprobación del administrador. ¡Pronto estará lista!', 'err');
+    else toast(e.red ? 'Sin conexión' : m, 'err');
+  }
+}
+let RG = { avatar: '', thumb: '' };
+function registroModal() {
+  if (CONF.registro === false) return toast('El registro está cerrado por ahora', 'err');
+  RG = { avatar: '', thumb: '' };
+  const min = Math.max(18, +CONF.edad_min || 18);
+  openModal(`<button class="x" data-act="cerrar" aria-label="Cerrar">✕</button><h2>Crea tu cuenta</h2><p class="note">Solo mayores de ${min} años. Cuéntanos un poco de ti 🙏</p>
+    ${CONF.fotos !== false ? `<div style="text-align:center;margin:10px 0"><div class="big-av" id="rg-av">📷</div><label class="btn sm ghost fileb">Subir mi foto<input type="file" id="rg-foto" accept="image/*"></label></div>` : ''}
+    <div class="row2"><label class="fld"><span>Usuario (para entrar)</span><input id="rg-user" autocapitalize="none" autocomplete="username" placeholder="ej: maria.fe"></label>
+    <label class="fld"><span>Contraseña</span><input id="rg-pass" type="password" autocomplete="new-password" placeholder="mínimo 6"></label></div>
+    <label class="fld"><span>Tu nombre</span><input id="rg-nom" maxlength="40" autocomplete="given-name"></label>
+    <div class="row3"><label class="fld"><span>Soy</span><select id="rg-gen"><option value="">Elige</option><option value="hombre">Hombre</option><option value="mujer">Mujer</option></select></label>
+    <label class="fld"><span>Edad</span><input id="rg-edad" type="number" inputmode="numeric" min="${min}" max="99"></label>
+    <label class="fld"><span>Estado civil</span><select id="rg-civil"><option value="">—</option>${opts(CIVILES)}</select></label></div>
+    <div class="row2"><label class="fld"><span>¿Dónde vives?</span><select id="rg-prov"><option value="">Provincia</option>${opts(PROVINCIAS)}</select></label>
+    <label class="fld"><span>Municipio / ciudad</span><input id="rg-ciu" maxlength="60"></label></div>
+    <div class="row2"><label class="fld"><span>Denominación</span><select id="rg-den"><option value="">Elige</option>${opts(CONF.denominaciones || [])}</select></label>
+    <label class="fld"><span>Busco</span><select id="rg-busca"><option value="">Elige</option>${opts(BUSCAS)}</select></label></div>
+    <div class="fld"><span>Mis gustos</span><div class="chips-sel" id="rg-chips">${GUSTOS.map(g => `<button type="button" data-act="chip" data-g="${esc(g)}">${esc(g)}</button>`).join('')}</div>
+    <textarea id="rg-gustos" maxlength="600" placeholder="Música cristiana, leer la Biblia…"></textarea></div>
+    <label class="fld"><span>Sobre mí (opcional)</span><textarea id="rg-bio" maxlength="800" placeholder="Cuéntanos tu testimonio o cómo eres"></textarea></label>
+    <div class="legal" style="max-height:26dvh">${esc(CONF.reglas || '')}</div>
+    <label class="chk"><input type="checkbox" id="rg-ok"> <span>Acepto las reglas y sé que la administración puede revisar las conversaciones para cuidar a la comunidad.</span></label>
+    <button class="btn pri block" data-act="reg-ok">Crear mi cuenta</button>`);
+}
+function toggleChip(btn) {
+  const ta = $('#rg-gustos') || $('#ed-gustos'); if (!ta) return; const g = btn.dataset.g;
+  let L = ta.value.split(',').map(s => s.trim()).filter(Boolean); const i = L.findIndex(x => x.toLowerCase() === g.toLowerCase());
+  if (i >= 0) L.splice(i, 1); else L.push(g); ta.value = L.join(', '); btn.classList.toggle('on', i < 0);
+}
+async function hacerRegistro(btn) {
+  const g = i => { const e = $('#' + i); return e ? e.value.trim() : ''; }, min = Math.max(18, +CONF.edad_min || 18);
+  if (!/^[a-z0-9_.]{3,20}$/i.test(g('rg-user'))) return toast('El usuario: 3 a 20 letras, números, punto o guion bajo', 'err');
+  if (g('rg-pass').length < 6) return toast('La contraseña debe tener al menos 6 caracteres', 'err');
+  if (g('rg-nom').length < 2) return toast('Escribe tu nombre', 'err');
+  if (!g('rg-gen')) return toast('Elige si eres hombre o mujer', 'err');
+  if (!(+g('rg-edad') >= min)) return toast('Debes tener ' + min + ' años o más', 'err');
+  if (!g('rg-prov')) return toast('Elige dónde vives', 'err');
+  if (!g('rg-den')) return toast('Elige tu denominación', 'err');
+  if (!$('#rg-ok').checked) return toast('Debes aceptar las reglas para registrarte', 'err');
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Creando…';
+  try {
+    const r = await rpc('cf_registrar', { p: { usuario: g('rg-user'), pass: g('rg-pass'), nombre: g('rg-nom'), genero: g('rg-gen'), edad: +g('rg-edad'), civil: g('rg-civil'), provincia: g('rg-prov'), ciudad: g('rg-ciu'), denominacion: g('rg-den'), busca: g('rg-busca'), gustos: g('rg-gustos'), bio: g('rg-bio'), avatar: RG.avatar, thumb: RG.thumb } });
+    const ov = btn.closest('.ov');
+    if (r.estado === 'pendiente') { $('.box', ov).innerHTML = `<h2>¡Registro recibido! 🙏</h2><p style="margin:10px 0">Tu cuenta quedó pendiente. Cuando la administración la apruebe, podrás entrar con tu usuario y contraseña.</p><button class="btn pri block" data-act="cerrar">Entendido</button>`; return; }
+    TOKEN = r.token; localStorage.setItem('cf_tok', TOKEN); await cargarYo(); closeModal(ov); VIEW = 'inicio'; render(); iniciarPulso(); toast('¡Bienvenido/a a ' + CONF.nombre + '! 🕊️', 'ok');
+  } catch (e) { btn.disabled = false; btn.textContent = 'Crear mi cuenta'; toast(e.red ? 'Sin conexión' : e.message, 'err'); }
+}
+
+/* =====================================================================
+   VISTAS
+   ===================================================================== */
+let VIEW = 'inicio', FIL = { q: '', genero: '', edad_min: '', edad_max: '', provincia: '', denominacion: '', busca: '' }, PEOPLE = [], PDONE = false, PCARGANDO = false;
+const TABS = [['inicio', '🏠', 'Inicio'], ['personas', '👥', 'Personas'], ['salas', '💬', 'Salas'], ['mensajes', '✉️', 'Mensajes'], ['perfil', '👤', 'Mi perfil']];
+let NOLEIDOS = 0;
+function render() {
+  const logged = !!(TOKEN && ME);
+  $('#tabs').hidden = !logged;
+  $('#userchip').innerHTML = logged ? `<button class="chip-u" data-act="tab" data-id="perfil">${avatarHTML(ME.thumb, ME.nombre)}<span>${esc(ME.nombre)}</span></button>` : `<button class="btn sm pri" data-act="login">Entrar</button>`;
+  if (!logged) { $('#app').innerHTML = viewVisitante(); return; }
+  $('#tabs').innerHTML = TABS.map(([k, ic, n]) => `<button class="${VIEW === k ? 'on' : ''}" data-act="tab" data-id="${k}"><i>${ic}</i>${n}${k === 'mensajes' && NOLEIDOS ? `<span class="cn">${NOLEIDOS}</span>` : ''}</button>`).join('');
+  const f = { inicio: viewInicio, personas: viewPersonas, salas: viewSalas, mensajes: viewMensajes, perfil: viewPerfil }[VIEW] || viewInicio;
+  $('#app').innerHTML = f(); window.scrollTo(0, 0);
+  if (VIEW === 'personas') cargarPersonas(true); if (VIEW === 'mensajes') cargarBandeja();
+}
+function viewVisitante() {
+  const v = versiculoHoy();
+  return `<div class="wrap"><section class="hero"><div class="cup">${CONF.logo ? `<img src="${esc(CONF.logo)}" alt="" style="width:100%;height:100%;object-fit:contain">` : LOGO_SVG}</div><h1>${esc(CONF.nombre)}</h1><p>${esc(CONF.bienvenida)}</p>
+    <div style="display:grid;gap:10px;max-width:320px;margin:auto"><button class="btn pri block" data-act="reg-abrir">✨ Crear mi cuenta</button><button class="btn block" data-act="login">Ya tengo cuenta</button></div></section>
+    ${v ? `<div class="ver"><q>${esc(v[0])}</q><cite>${esc(v[1])}</cite></div>` : ''}
+    <div class="steps"><div class="card"><div class="ic">📝</div><b>Regístrate</b><p class="note">Con tu foto, edad, dónde vives, tu denominación y tus gustos.</p></div><div class="card"><div class="ic">👥</div><b>Conoce hermanos</b><p class="note">Busca por edad, provincia y denominación.</p></div><div class="card"><div class="ic">💬</div><b>Conversa</b><p class="note">En salas con todos o en privado.</p></div></div>
+    <div class="card"><h3>Reglas de la comunidad</h3><div class="legal" style="margin-top:8px">${esc(CONF.reglas || '')}</div></div></div>`;
+}
+function viewInicio() {
+  const v = versiculoHoy(), salas = (CONF.salas || []).slice(0, 4);
+  return `<div class="wrap"><h2 style="margin:6px 0">Paz contigo, ${esc(ME.nombre)} 🕊️</h2><p class="mut">${esc(CONF.bienvenida)}</p>
+    ${v ? `<div class="ver"><q>${esc(v[0])}</q><cite>${esc(v[1])}</cite></div>` : ''}
+    <div class="tb"><button class="btn pri" data-act="tab" data-id="personas">👥 Conocer personas</button><button class="btn" data-act="tab" data-id="mensajes">✉️ Mis mensajes${NOLEIDOS ? ` <span class="cn">${NOLEIDOS}</span>` : ''}</button></div>
+    <h3 style="margin:16px 0 4px">Salas de conversación</h3>${salas.map(s => `<button class="lst" data-act="sala" data-id="${esc(s.id)}"><span class="ic">${esc(s.icono || '💬')}</span><span class="t"><b>${esc(s.nombre)}</b><small>${esc(s.desc || '')}</small></span><span>›</span></button>`).join('')}
+    ${!ME.avatar ? `<div class="info">📷 Aún no tienes foto de perfil. <a href="#" data-act="tab" data-id="perfil">Agrégala aquí</a> para que más personas te conozcan.</div>` : ''}</div>`;
+}
+function viewPersonas() {
+  const hay = Object.entries(FIL).some(([k, v]) => v);
+  return `<div class="wrap"><h2>Conocer personas</h2>
+    <div class="row2" style="margin-top:8px"><input id="f-q" placeholder="🔍 Buscar por nombre, ciudad o gustos" value="${esc(FIL.q)}" style="grid-column:1/-1"></div>
+    <div class="filters">
+      <select id="f-genero"><option value="">Todos</option><option value="hombre" ${FIL.genero === 'hombre' ? 'selected' : ''}>Hombres</option><option value="mujer" ${FIL.genero === 'mujer' ? 'selected' : ''}>Mujeres</option></select>
+      <select id="f-provincia"><option value="">Toda Cuba</option>${opts(PROVINCIAS, FIL.provincia)}</select>
+      <select id="f-denominacion"><option value="">Denominación</option>${opts(CONF.denominaciones || [], FIL.denominacion)}</select>
+      <select id="f-busca"><option value="">Busca…</option>${opts(BUSCAS, FIL.busca)}</select>
+      <input id="f-edad_min" type="number" inputmode="numeric" placeholder="Edad desde" value="${esc(FIL.edad_min)}"><input id="f-edad_max" type="number" inputmode="numeric" placeholder="Edad hasta" value="${esc(FIL.edad_max)}"></div>
+    ${hay ? '<button class="btn sm ghost" data-act="f-limpiar">Quitar filtros</button>' : ''}
+    <div id="people" class="people" style="margin-top:12px"></div><div id="pmore" style="text-align:center;margin:14px 0"></div></div>`;
+}
+const personaCard = p => `<div class="pc" data-act="perfil" data-id="${p.id}" role="button" tabindex="0"><div class="ph">${p.thumb ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : (p.genero === 'mujer' ? '👩' : '👨')}</div>${p.en_linea ? '<span class="dot" title="En línea"></span>' : ''}<div class="inf"><b>${esc(p.nombre)}, ${esc(p.edad)}</b><small>📍 ${esc(p.provincia || '')}${p.ciudad ? ' · ' + esc(p.ciudad) : ''}</small><small>⛪ ${esc(p.denominacion || '')}</small></div></div>`;
+async function cargarPersonas(reset) {
+  if (PCARGANDO) return; PCARGANDO = true;
+  const box = $('#people'), more = $('#pmore'); if (!box) { PCARGANDO = false; return; }
+  if (reset) { PEOPLE = []; PDONE = false; box.innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="spin"></span></div>'; }
+  try {
+    const L = await api('cf_explorar', { p_f: { ...FIL, desde: PEOPLE.length, limite: 24 } });
+    PEOPLE = PEOPLE.concat(L); PDONE = L.length < 24;
+    if (!$('#people')) return;
+    box.innerHTML = PEOPLE.length ? PEOPLE.map(personaCard).join('') : '<div class="empty" style="grid-column:1/-1">No encontramos personas con esos filtros. Prueba quitar alguno 🙏</div>';
+    more.innerHTML = PDONE ? '' : '<button class="btn" data-act="p-mas">Ver más personas</button>';
+  } catch (e) { if (box) box.innerHTML = `<div class="empty" style="grid-column:1/-1">${esc(e.red ? 'Sin conexión' : e.message)}</div>`; }
+  PCARGANDO = false;
+}
+async function verPerfil(id) {
+  if (id === ME.id) { VIEW = 'perfil'; closeModal($$('.ov').pop()); render(); return; }
+  const m = openModal('<div class="empty"><span class="spin"></span></div>');
+  try {
+    const [p, fotos] = await Promise.all([api('cf_perfil', { p_id: id }), api('cf_fotos_de', { p_id: id })]);
+    $('.box', m).innerHTML = `<button class="x" data-act="cerrar" aria-label="Cerrar">✕</button><div style="text-align:center"><div class="big-av" ${p.avatar ? `data-act="zoom" data-src="${esc(p.avatar)}" style="cursor:zoom-in"` : ''}>${p.avatar ? `<img src="${esc(p.avatar)}" alt="">` : (p.genero === 'mujer' ? '👩' : '👨')}</div>
+      <h2 style="padding:0">${esc(p.nombre)}, ${esc(p.edad)}</h2><p class="mut">${p.en_linea ? '🟢 En línea' : ''}</p></div>
+      <div style="margin:8px 0">${p.provincia ? `<span class="tag">📍 ${esc(p.provincia)}${p.ciudad ? ' · ' + esc(p.ciudad) : ''}</span>` : ''}${p.denominacion ? `<span class="tag b">⛪ ${esc(p.denominacion)}</span>` : ''}${p.civil ? `<span class="tag">${esc(p.civil)}</span>` : ''}${p.busca ? `<span class="tag b">💛 ${esc(p.busca)}</span>` : ''}</div>
+      ${p.gustos ? `<h3 style="margin-top:10px">Mis gustos</h3><p>${esc(p.gustos)}</p>` : ''}${p.bio ? `<h3 style="margin-top:10px">Sobre mí</h3><p style="white-space:pre-line">${esc(p.bio)}</p>` : ''}
+      ${fotos.length ? `<h3 style="margin-top:12px">Fotos</h3><div class="gal">${fotos.map(f => `<img src="${esc(f.thumb || '')}" data-act="foto" data-id="${f.id}" alt="">`).join('')}</div>` : ''}
+      <div style="display:grid;gap:8px;margin-top:14px"><button class="btn pri block" data-act="escribir" data-id="${p.id}" data-n="${esc(p.nombre)}">💬 Escribirle</button>
+      <div class="row2"><button class="btn sm ghost" data-act="bloquear" data-id="${p.id}">🚫 Bloquear</button><button class="btn sm ghost" data-act="reportar" data-id="${p.id}">🚩 Reportar</button></div></div>`;
+  } catch (e) { $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><h2>Perfil</h2><p class="empty">${esc(e.message)}</p>`; }
+}
+function viewSalas() {
+  const salas = CONF.salas && CONF.salas.length ? CONF.salas : DEFCONF.salas;
+  return `<div class="wrap"><h2>Salas de conversación</h2><p class="mut">Aquí hablamos todos juntos. ¡Con amor y respeto! 🙏</p>${salas.map(s => `<button class="lst" data-act="sala" data-id="${esc(s.id)}"><span class="ic">${esc(s.icono || '💬')}</span><span class="t"><b>${esc(s.nombre)}</b><small>${esc(s.desc || '')}</small></span><span>›</span></button>`).join('')}</div>`;
+}
+function viewMensajes() { return `<div class="wrap"><h2>Mis mensajes</h2><p class="mut">Tus conversaciones privadas.</p><div id="bandeja"><div class="empty"><span class="spin"></span></div></div></div>`; }
+async function cargarBandeja() {
+  const box = $('#bandeja'); if (!box) return;
+  try {
+    const L = await api('cf_bandeja'); if (!$('#bandeja')) return;
+    NOLEIDOS = L.reduce((s, x) => s + (+x.nuevos || 0), 0); pintarBadge();
+    box.innerHTML = L.length ? L.map(x => `<button class="lst" data-act="priv" data-id="${x.otro}" data-n="${esc(x.nombre)}">${avatarHTML(x.thumb, x.nombre, 'av')}<span class="t"><b>${esc(x.nombre)}</b><small>${x.mio ? 'Tú: ' : ''}${esc(x.ultimo || (x.img ? '📷 Foto' : ''))}</small></span>${+x.nuevos ? `<span class="cn">${x.nuevos}</span>` : ''}</button>`).join('') : '<div class="empty">Todavía no tienes mensajes.<br>Entra a <b>Personas</b> y saluda a alguien 🙏</div>';
+  } catch (e) { box.innerHTML = `<div class="empty">${esc(e.red ? 'Sin conexión' : e.message)}</div>`; }
+}
+function pintarBadge() { const b = $('#tabs [data-id=mensajes]'); if (!b) return; const c = $('.cn', b); if (NOLEIDOS) { if (c) c.textContent = NOLEIDOS; else b.insertAdjacentHTML('beforeend', `<span class="cn">${NOLEIDOS}</span>`); } else if (c) c.remove(); }
+let PULSO = null;
+function iniciarPulso() { clearInterval(PULSO); const f = async () => { if (!TOKEN || document.hidden) return; try { const r = await api('cf_pulso'); if (r.no_leidos !== NOLEIDOS) { NOLEIDOS = r.no_leidos; pintarBadge(); if (VIEW === 'mensajes' && !CHAT) cargarBandeja(); } } catch { } }; f(); PULSO = setInterval(f, 8000); }
+function viewPerfil() {
+  const m = ME;
+  return `<div class="wrap"><div class="card" style="text-align:center"><div class="big-av" ${m.avatar ? `data-act="zoom" data-src="${esc(m.avatar)}"` : ''}>${m.avatar ? `<img src="${esc(m.avatar)}" alt="">` : '📷'}</div><h2>${esc(m.nombre)}, ${esc(m.edad)}</h2><p class="mut">@${esc(m.usuario)}</p>
+    <div>${m.provincia ? `<span class="tag">📍 ${esc(m.provincia)}${m.ciudad ? ' · ' + esc(m.ciudad) : ''}</span>` : ''}${m.denominacion ? `<span class="tag b">⛪ ${esc(m.denominacion)}</span>` : ''}${m.civil ? `<span class="tag">${esc(m.civil)}</span>` : ''}${m.busca ? `<span class="tag b">💛 ${esc(m.busca)}</span>` : ''}</div>
+    ${m.gustos ? `<p style="margin-top:8px">${esc(m.gustos)}</p>` : ''}${m.bio ? `<p class="mut" style="margin-top:6px;white-space:pre-line">${esc(m.bio)}</p>` : ''}
+    <div class="tb" style="justify-content:center"><button class="btn pri" data-act="editar">✏️ Editar mi perfil</button></div></div>
+    <div class="card"><h3>Mis fotos</h3>${m.fotos_ok ? '' : '<p class="note">🔒 Por ahora la administración no permite subir fotos.</p>'}<div id="mis-fotos"><span class="spin"></span></div>
+    ${m.fotos_ok ? '<label class="btn sm ghost fileb" style="margin-top:8px">📷 Agregar foto<input type="file" id="gal-file" accept="image/*"></label>' : ''}</div>
+    <div class="card"><h3>Mi cuenta</h3><div class="tb"><button class="btn sm" data-act="cambiar-pass">🔑 Cambiar contraseña</button><button class="btn sm" data-act="bloqueados">🚫 Bloqueados</button><button class="btn sm" data-act="salir">Cerrar sesión</button><button class="btn sm danger" data-act="borrar-cuenta">Eliminar mi cuenta</button></div></div></div>`;
+}
+async function cargarMisFotos() {
+  const box = $('#mis-fotos'); if (!box) return;
+  try { const L = await api('cf_fotos_de', { p_id: ME.id }); if (!$('#mis-fotos')) return; $('#mis-fotos').innerHTML = L.length ? `<div class="gal">${L.map(f => `<div class="gi"><img src="${esc(f.thumb || '')}" data-act="foto" data-id="${f.id}" alt=""><button data-act="foto-del" data-id="${f.id}" aria-label="Borrar">✕</button></div>`).join('')}</div>` : '<p class="note">Aún no has subido fotos.</p>'; } catch (e) { box.textContent = e.message; }
+}
+function editarModal() {
+  const m = ME, min = Math.max(18, +CONF.edad_min || 18); RG = { avatar: undefined, thumb: undefined };
+  openModal(`<button class="x" data-act="cerrar" aria-label="Cerrar">✕</button><h2>Editar mi perfil</h2>
+    <div style="text-align:center;margin:8px 0"><div class="big-av" id="ed-av">${m.avatar ? `<img src="${esc(m.avatar)}" alt="">` : '📷'}</div>${m.fotos_ok ? '<label class="btn sm ghost fileb">Cambiar foto de perfil<input type="file" id="ed-foto" accept="image/*"></label>' : '<p class="note">🔒 Por ahora no se pueden cambiar fotos.</p>'}</div>
+    <label class="fld"><span>Nombre</span><input id="ed-nom" maxlength="40" value="${esc(m.nombre)}"></label>
+    <div class="row2"><label class="fld"><span>Edad</span><input id="ed-edad" type="number" min="${min}" max="99" value="${esc(m.edad)}"></label><label class="fld"><span>Estado civil</span><select id="ed-civil"><option value="">—</option>${opts(CIVILES, m.civil)}</select></label></div>
+    <div class="row2"><label class="fld"><span>Provincia</span><select id="ed-prov"><option value="">—</option>${opts(PROVINCIAS, m.provincia)}</select></label><label class="fld"><span>Municipio / ciudad</span><input id="ed-ciu" value="${esc(m.ciudad || '')}"></label></div>
+    <div class="row2"><label class="fld"><span>Denominación</span><select id="ed-den"><option value="">—</option>${opts(CONF.denominaciones || [], m.denominacion)}</select></label><label class="fld"><span>Busco</span><select id="ed-busca"><option value="">—</option>${opts(BUSCAS, m.busca)}</select></label></div>
+    <div class="fld"><span>Mis gustos</span><div class="chips-sel">${GUSTOS.map(g => `<button type="button" data-act="chip" data-g="${esc(g)}" class="${(m.gustos || '').toLowerCase().includes(g.toLowerCase()) ? 'on' : ''}">${esc(g)}</button>`).join('')}</div><textarea id="ed-gustos" maxlength="600">${esc(m.gustos || '')}</textarea></div>
+    <label class="fld"><span>Sobre mí</span><textarea id="ed-bio" maxlength="800">${esc(m.bio || '')}</textarea></label>
+    <button class="btn pri block" data-act="ed-ok">Guardar cambios</button>`);
+}
+async function guardarPerfil(btn) {
+  const g = i => $('#' + i).value.trim(), p = { nombre: g('ed-nom'), edad: +g('ed-edad'), civil: g('ed-civil'), provincia: g('ed-prov'), ciudad: g('ed-ciu'), denominacion: g('ed-den'), busca: g('ed-busca'), gustos: g('ed-gustos'), bio: g('ed-bio') };
+  if (RG.avatar !== undefined) { p.avatar = RG.avatar; p.thumb = RG.thumb; }
+  btn.disabled = true;
+  try { await api('cf_editar', { p }); await cargarYo(); closeModal(btn.closest('.ov')); render(); toast('Perfil guardado', 'ok'); } catch (e) { btn.disabled = false; toast(e.message, 'err'); }
+}
+
+/* =====================================================================
+   CHAT: salas y mensajes privados
+   ===================================================================== */
+let CHAT = null;
+function abrirChat(ctx) {
+  cerrarChat();
+  const r = document.createElement('div'); r.className = 'chat';
+  r.innerHTML = `<div class="chat-h"><button class="ib" data-act="chat-x" aria-label="Volver">←</button><div class="t"><b>${esc(ctx.titulo)}</b><small>${ctx.tipo === 'sala' ? esc(ctx.desc || 'Sala abierta para todos') : 'Conversación privada'}</small></div>${ctx.tipo === 'priv' ? `<button class="ib" data-act="perfil" data-id="${ctx.otro}" aria-label="Ver perfil">👤</button>` : ''}</div>
+    <div class="msgs" id="msgs"><div class="empty"><span class="spin"></span></div></div><div class="emo" id="emo" hidden>${EMOJIS.map(e => `<button type="button" data-act="emo" data-e="${e}">${e}</button>`).join('')}</div>
+    <div class="inbar"><button class="ib" data-act="emo-t" aria-label="Emojis">😊</button>${ME.fotos_ok ? '<label class="ib fileb" style="display:grid;place-items:center">📷<input type="file" id="chat-foto" accept="image/*"></label>' : ''}<textarea id="chat-txt" placeholder="Escribe un mensaje…" maxlength="1000" rows="1"></textarea><button class="ib send" data-act="enviar" aria-label="Enviar">➤</button></div>`;
+  document.body.appendChild(r); document.body.style.overflow = 'hidden';
+  CHAT = { ...ctx, last: 0, el: r, busy: false, primero: true };
+  const ta = $('#chat-txt', r);
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && innerWidth > 700) { e.preventDefault(); enviarMsg(); } });
+  ta.addEventListener('input', () => { ta.style.height = '44px'; ta.style.height = Math.min(120, ta.scrollHeight) + 'px'; });
+  chatCargar(); CHAT.timer = setInterval(() => { if (!document.hidden) chatCargar(); }, 3000);
+}
+function cerrarChat() { if (!CHAT) return; clearInterval(CHAT.timer); CHAT.el.remove(); CHAT = null; if (!$('.ov')) document.body.style.overflow = ''; if (VIEW === 'mensajes') cargarBandeja(); }
+const msgHTML = m => {
+  const mine = m.de === ME.id, a = m.admin;
+  return `<div class="m ${mine ? 'me' : ''} ${a ? 'adm' : ''}" data-id="${m.id}">${a ? '<span class="who" style="cursor:default">⛪ Administración</span>' : (!mine && CHAT && CHAT.tipo === 'sala' ? `<span class="who" data-act="perfil" data-id="${m.de}">${esc(m.nombre || '')}</span>` : '')}${m.texto ? `<p>${esc(m.texto)}</p>` : ''}${m.img ? `<button class="pic" data-act="ver-img" data-id="${m.id}">📷 Ver foto</button>` : ''}<time>${hora(m.creado)}</time>${!mine && !a ? `<button class="rep" data-act="rep-msg" data-id="${m.id}" data-de="${m.de}" title="Reportar">🚩</button>` : ''}</div>`;
+};
+async function chatCargar() {
+  const C = CHAT; if (!C || C.busy) return; C.busy = true;
+  try {
+    const L = C.tipo === 'sala' ? await api('cf_sala', { p_sala: C.sala, p_desde: C.last, p_limite: 60 }) : await api('cf_privado', { p_otro: C.otro, p_desde: C.last, p_limite: 80 });
+    if (CHAT !== C) return;
+    const box = $('#msgs', C.el), cerca = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
+    if (C.primero) { box.innerHTML = ''; C.primero = false; if (!L.length) box.innerHTML = '<div class="empty" id="vacio">Aún no hay mensajes. ¡Sé el primero en saludar! 🙏</div>'; }
+    if (L.length) { const v = $('#vacio', box); if (v) v.remove(); box.insertAdjacentHTML('beforeend', L.map(msgHTML).join('')); C.last = L[L.length - 1].id; if (cerca || L.some(x => x.de === ME.id)) box.scrollTop = box.scrollHeight; }
+  } catch (e) { if (CHAT === C && C.primero) $('#msgs', C.el).innerHTML = `<div class="empty">${esc(e.red ? 'Sin conexión' : e.message)}</div>`; }
+  C.busy = false;
+}
+async function enviarMsg(imagen) {
+  const C = CHAT; if (!C) return; const ta = $('#chat-txt', C.el), t = ta.value.trim();
+  if (!t && !imagen) return;
+  ta.value = ''; ta.style.height = '44px';
+  try { await api('cf_enviar', { p_sala: C.tipo === 'sala' ? C.sala : 'priv', p_para: C.tipo === 'priv' ? C.otro : null, p_texto: t, p_imagen: imagen || null }); C.busy = false; await chatCargar(); }
+  catch (e) { ta.value = t; toast(e.red ? 'Sin conexión' : e.message, 'err'); }
+}
+async function verImagenMsg(id, btn) {
+  btn.disabled = true; btn.textContent = 'Cargando…';
+  try { const im = await api('cf_imagen', { p_id: id }); if (im) { btn.outerHTML = `<img class="full" src="${esc(im)}" data-act="zoom" alt="">`; } else btn.textContent = 'No disponible'; } catch (e) { btn.disabled = false; btn.textContent = '📷 Ver foto'; toast(e.message, 'err'); }
+}
+
+/* =====================================================================
+   PANEL DE ADMINISTRADOR (se entra con el botón escondido ⚙, abajo a la derecha,
+   y la misma contraseña de tu tienda)
+   ===================================================================== */
+let AM = null, admTab = 'resumen';
+const ADMQ = { q: '', estado: '', conv: '', sala: 'general' };
+const ADM_TABS = [['resumen', '📊 Resumen'], ['usuarios', '👥 Usuarios'], ['conv', '💬 Conversaciones'], ['salas', '🏛️ Salas'], ['reportes', '🚩 Reportes'], ['fotos', '🖼️ Fotos'], ['avisos', '📢 Avisos'], ['aparien', '🎨 Apariencia'], ['ajustes', '⚙️ Ajustes'], ['actualizar', '🔄 Actualizar página'], ['conexion', '🔌 GitHub']];
+const val = id => { const e = $('#' + id); return e ? e.value.trim() : ''; };
+const lineas = s => String(s || '').split('\n').map(x => x.trim()).filter(Boolean);
+function adminLoginModal() {
+  const m = openModal(`<button class="x" data-act="cerrar" aria-label="Cerrar">✕</button><h2>Administrador</h2><p class="note">Escribe la contraseña que pusiste en el SQL.</p><label class="fld"><span>Contraseña</span><input id="ad-pass" type="password" autocomplete="current-password"></label><button class="btn pri block" data-act="admin-ok">Entrar</button>`);
+  $('#ad-pass', m).addEventListener('keydown', e => { if (e.key === 'Enter') $('[data-act=admin-ok]', m).click(); }); setTimeout(() => $('#ad-pass', m).focus(), 100);
+}
+async function adminLogin(pass) { const n = await rpc('cf_admin_entrar', { p_clave: pass }); if (!n) return false; ADMIN = { clave: pass, nombre: typeof n === 'string' ? n : 'Administrador' }; sessionStorage.setItem('cf_adm', pass); aplicarConf(); return true; }
+async function abrirAdmin() {
+  if (AM && AM.isConnected) return;
+  if (!ADMIN) { const s = sessionStorage.getItem('cf_adm'); if (s) { try { if (await adminLogin(s)) return mostrarAdmin(); } catch { } } return adminLoginModal(); }
+  mostrarAdmin();
+}
+function mostrarAdmin() {
+  AM = openModal(`<button class="x" data-act="adm-cerrar" aria-label="Cerrar">✕</button><div class="adm"><h2>⚙️ Panel de ${esc(CONF.nombre)}</h2><div class="adm-nav" id="admNav"></div><div id="admBody"></div></div>`, 'full');
+  admTab = 'resumen'; admRender();
+}
+async function admRender() {
+  if (!AM || !AM.isConnected) return;
+  $('#admNav').innerHTML = ADM_TABS.map(([k, n]) => `<button class="${admTab === k ? 'on' : ''}" data-act="adm-tab" data-id="${k}">${n}</button>`).join('');
+  const body = $('#admBody'), tab = admTab; body.innerHTML = '<div class="empty"><span class="spin"></span></div>';
+  try { const h = await VIEWS[tab](); if (admTab !== tab || !AM || !AM.isConnected) return; body.innerHTML = h; if (tab === 'avisos') msgMediosUI('av'); }
+  catch (e) { if (admTab === tab && body) body.innerHTML = `<div class="alerta">${esc(e.red ? 'Sin conexión' : e.message)}</div><p class="note">Si es la primera vez, revisa que ejecutaste el archivo cafeconfe.sql en Supabase.</p>`; if (/No autorizado/.test(e.message)) { closeModal(AM); AM = null; } }
+}
+async function guardarConf(fn, msg) {
+  try { const full = merge((await adm('cf_a_config')) || {}, clone(DEFCONF)); fn(full); await adm('cf_a_guardar_config', { p_valor: full }); await cargarConf(); if (msg) toast(msg, 'ok'); return true; }
+  catch (e) { toast(e.message, 'err'); return false; }
+}
+const fechaCorta = iso => { const d = new Date(iso); return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`; };
+const ck = (i, v, t) => `<label class="chk"><input type="checkbox" id="${i}" ${v ? 'checked' : ''}> <span>${t}</span></label>`;
+const VIEWS = {};
+
+VIEWS.resumen = async () => {
+  const r = await adm('cf_a_resumen'), f = CONF.fotos !== false;
+  return `<div class="stats">${[['👥', r.usuarios, 'Usuarios'], ['🟢', r.en_linea, 'En línea'], ['⏳', r.pendientes, 'Pendientes'], ['⛔', r.expulsados, 'Expulsados'], ['👨', r.hombres, 'Hombres'], ['👩', r.mujeres, 'Mujeres'], ['💬', r.mensajes_hoy, 'Mensajes (24 h)'], ['✉️', r.privados, 'Privados'], ['🖼️', r.fotos, 'Fotos'], ['🚩', r.reportes, 'Reportes']].map(([i, n, t]) => `<div class="stat"><b>${i} ${n}</b><small>${t}</small></div>`).join('')}</div>
+    ${r.pendientes ? `<div class="alerta" style="margin-top:12px">⏳ Hay ${r.pendientes} cuenta(s) esperando aprobación. <a href="#" data-act="adm-tab" data-id="usuarios" data-estado="pendiente">Verlas</a></div>` : ''}
+    ${r.reportes ? `<div class="alerta">🚩 Hay ${r.reportes} reporte(s) sin revisar. <a href="#" data-act="adm-tab" data-id="reportes">Verlos</a></div>` : ''}
+    <h3>Control rápido</h3>
+    <div class="reg"><b>📷 Subir fotos: ${f ? '<span class="pill ok">PERMITIDO</span>' : '<span class="pill err">BLOQUEADO</span>'}</b><p class="note">${f ? 'Los usuarios pueden subir fotos de perfil, galería y enviar fotos en el chat.' : 'Nadie puede subir ni enviar fotos nuevas.'}</p><div class="pa"><button data-act="fotos-global" data-v="${f ? 0 : 1}">${f ? '🔒 Bloquear fotos para todos' : '🔓 Permitir fotos'}</button></div></div>
+    <div class="reg"><b>📝 Registro: ${CONF.registro !== false ? '<span class="pill ok">ABIERTO</span>' : '<span class="pill err">CERRADO</span>'}</b><div class="pa"><button data-act="registro-global" data-v="${CONF.registro !== false ? 0 : 1}">${CONF.registro !== false ? 'Cerrar registro' : 'Abrir registro'}</button></div></div>
+    <div class="reg"><b>⏸ Mantenimiento: ${CONF.mant.activo ? '<span class="pill err">ACTIVO</span>' : '<span class="pill ok">apagado</span>'}</b><div class="pa"><button data-act="mant-tog">${CONF.mant.activo ? 'Reanudar la página' : 'Pausar la página'}</button></div></div>`;
+};
+
+/* ---------- usuarios ---------- */
+const estPill = e => `<span class="pill ${esc(e)}">${esc(e)}</span>`;
+VIEWS.usuarios = async () => {
+  const L = await adm('cf_a_usuarios', { p_q: ADMQ.q, p_estado: ADMQ.estado });
+  return `<div class="row2"><input id="au-q" placeholder="🔍 Buscar usuario, nombre, provincia…" value="${esc(ADMQ.q)}"><select id="au-estado"><option value="">Todos</option>${['activo', 'pendiente', 'expulsado'].map(e => `<option value="${e}" ${ADMQ.estado === e ? 'selected' : ''}>${e}</option>`).join('')}</select></div><p class="note">${L.length} usuario(s)</p>
+    ${L.map(u => `<div class="reg"><header><span style="display:flex;gap:10px;align-items:center">${avatarHTML(u.thumb, u.nombre)}<span><b>${esc(u.nombre)}</b>, ${esc(u.edad)} <small class="mut">@${esc(u.usuario)}</small></span></span>${estPill(u.estado)}</header>
+      <div class="note">📍 ${esc(u.provincia || '—')} · ⛪ ${esc(u.denominacion || '—')} · 💬 ${u.nmsg} msj · 🖼️ ${u.nfotos} fotos · Entró ${fechaCorta(u.ultimo)} · ${u.puede_fotos ? '📷 puede subir fotos' : '🔒 sin fotos'}${u.motivo ? '<br>⛔ Motivo: ' + esc(u.motivo) : ''}${u.nota ? '<br>📝 ' + esc(u.nota) : ''}</div>
+      <div class="pa"><button data-act="au-ver" data-id="${u.id}">👁 Ver</button><button data-act="au-conv" data-id="${u.id}" data-n="${esc(u.nombre)}">💬 Conversaciones</button>
+      ${u.estado === 'pendiente' ? `<button data-act="au-apr" data-id="${u.id}">✅ Aprobar</button>` : ''}${u.estado === 'expulsado' ? `<button data-act="au-react" data-id="${u.id}">♻️ Reactivar</button>` : `<button class="del" data-act="au-exp" data-id="${u.id}" data-n="${esc(u.nombre)}">⛔ Expulsar</button>`}
+      <button data-act="au-fotos" data-id="${u.id}" data-v="${u.puede_fotos ? 'fotos_off' : 'fotos_on'}">${u.puede_fotos ? '🔒 Quitar fotos' : '🔓 Dar fotos'}</button><button data-act="au-pass" data-id="${u.id}">🔑 Clave</button><button class="del" data-act="au-del" data-id="${u.id}" data-n="${esc(u.nombre)}">🗑</button></div></div>`).join('') || '<div class="empty">No hay usuarios.</div>'}`;
+};
+async function verUsuarioAdmin(id) {
+  const m = openModal('<div class="empty"><span class="spin"></span></div>');
+  try {
+    const u = await adm('cf_a_usuario', { p_id: id }), fotos = await adm('cf_a_fotos', { p_antes: null, p_limite: 100 });
+    const mias = fotos.filter(f => f.usuario_id === id);
+    $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><div style="text-align:center"><div class="big-av" ${u.avatar ? `data-act="zoom" data-src="${esc(u.avatar)}"` : ''}>${u.avatar ? `<img src="${esc(u.avatar)}" alt="">` : '👤'}</div><h2 style="padding:0">${esc(u.nombre)}, ${esc(u.edad)}</h2><p class="mut">@${esc(u.usuario)} · ${estPill(u.estado)}</p></div>
+      <p class="note">${esc(u.genero)} · ${esc(u.civil || '')} · 📍 ${esc(u.provincia || '')} ${esc(u.ciudad || '')} · ⛪ ${esc(u.denominacion || '')} · Busca: ${esc(u.busca || '')}<br>Registro: ${fechaCorta(u.creado)}</p>
+      ${u.gustos ? `<p><b>Gustos:</b> ${esc(u.gustos)}</p>` : ''}${u.bio ? `<p style="white-space:pre-line"><b>Sobre mí:</b> ${esc(u.bio)}</p>` : ''}
+      ${mias.length ? `<h3>Fotos</h3><div class="gal">${mias.map(f => `<img src="${esc(f.thumb || '')}" data-act="adm-foto" data-id="${f.id}" alt="">`).join('')}</div>` : ''}
+      <label class="fld"><span>Nota privada (solo tú la ves)</span><textarea id="au-nota">${esc(u.nota_admin || '')}</textarea></label>
+      <div class="pa"><button data-act="au-nota" data-id="${u.id}">💾 Guardar nota</button>${u.avatar ? `<button class="del" data-act="au-qfp" data-id="${u.id}">Quitar foto de perfil</button>` : ''}</div>`;
+  } catch (e) { $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><p class="alerta">${esc(e.message)}</p>`; }
+}
+async function accionUsuario(id, accion, valor, msg) { try { await adm('cf_a_set', { p_id: +id, p_accion: accion, p_valor: valor || null }); toast(msg, 'ok'); admRender(); return true; } catch (e) { toast(e.message, 'err'); return false; } }
+
+/* ---------- conversaciones (leer todo) ---------- */
+VIEWS.conv = async () => {
+  const L = await adm('cf_a_conversaciones', { p_q: ADMQ.conv });
+  return `<input id="ac-q" placeholder="🔍 Buscar por nombre o usuario" value="${esc(ADMQ.conv)}"><p class="note">${L.length} conversación(es) privada(s). Toca una para leerla completa.</p>
+    ${L.map(c => `<button class="lst" data-act="ac-hilo" data-a="${c.a}" data-b="${c.b}" data-na="${esc(c.na)}" data-nb="${esc(c.nb)}">${avatarHTML(c.ta, c.na)}${avatarHTML(c.tb, c.nb)}<span class="t"><b>${esc(c.na)} ↔ ${esc(c.nb)}</b><small>${esc(c.ultimo || '')}</small></span><small class="mut">${c.n} msj<br>${fechaCorta(c.cuando)}</small></button>`).join('') || '<div class="empty">No hay conversaciones.</div>'}`;
+};
+async function verHilo(a, b, na, nb, m) {
+  m = m || openModal('<div class="empty"><span class="spin"></span></div>', 'full');
+  try {
+    const L = await adm('cf_a_hilo', { p_a: +a, p_b: +b, p_limite: 300 });
+    $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><h2>${esc(na)} ↔ ${esc(nb)}</h2><div class="tb"><button class="btn sm" data-act="ac-hilo" data-a="${a}" data-b="${b}" data-na="${esc(na)}" data-nb="${esc(nb)}" data-re="1">🔄 Actualizar</button></div>
+      <div class="msgs" style="border-radius:16px;max-height:70dvh;min-height:40dvh" id="hilo">${L.map(x => `<div class="m ${String(x.de) === String(a) ? '' : 'me'}" style="${x.borrado ? 'opacity:.45' : ''}"><span class="who" style="display:block;cursor:default">${esc(x.nombre || '')}</span>${x.texto ? `<p>${esc(x.texto)}</p>` : ''}${x.img ? `<button class="pic" data-act="adm-img" data-id="${x.id}">📷 Ver foto</button>` : ''}<time>${hora(x.creado)}${x.borrado ? ' · borrado' : ''} · <a href="#" data-act="adm-msg-del" data-id="${x.id}" data-v="${x.borrado ? 0 : 1}" style="color:inherit">${x.borrado ? 'restaurar' : 'borrar'}</a></time></div>`).join('') || '<div class="empty">Sin mensajes.</div>'}</div>`;
+    const h = $('#hilo', m); if (h) h.scrollTop = h.scrollHeight;
+  } catch (e) { $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><p class="alerta">${esc(e.message)}</p>`; }
+}
+
+/* ---------- salas ---------- */
+VIEWS.salas = async () => {
+  const salas = CONF.salas && CONF.salas.length ? CONF.salas : DEFCONF.salas, L = await adm('cf_a_sala', { p_sala: ADMQ.sala, p_limite: 150 });
+  return `<label class="fld"><span>Sala</span><select id="as-sala">${salas.map(s => `<option value="${esc(s.id)}" ${s.id === ADMQ.sala ? 'selected' : ''}>${esc(s.icono || '')} ${esc(s.nombre)}</option>`).join('')}</select></label>
+    <div class="tb"><button class="btn sm" data-act="adm-tab" data-id="salas">🔄 Actualizar</button></div>
+    <div class="msgs" style="border-radius:16px;max-height:55dvh;min-height:30dvh" id="hilo">${L.map(x => `<div class="m ${x.admin ? 'adm' : ''}" style="${x.borrado ? 'opacity:.45' : ''}"><span class="who" style="cursor:default">${x.admin ? '⛪ Administración' : esc(x.nombre || '')}</span>${x.texto ? `<p>${esc(x.texto)}</p>` : ''}${x.img ? `<button class="pic" data-act="adm-img" data-id="${x.id}">📷 Ver foto</button>` : ''}<time>${hora(x.creado)}${x.borrado ? ' · borrado' : ''} · <a href="#" data-act="adm-msg-del" data-id="${x.id}" data-v="${x.borrado ? 0 : 1}" style="color:inherit">${x.borrado ? 'restaurar' : 'borrar'}</a>${x.de ? ` · <a href="#" data-act="au-exp" data-id="${x.de}" data-n="${esc(x.nombre || '')}" style="color:inherit">expulsar</a>` : ''}</time></div>`).join('') || '<div class="empty">Sin mensajes.</div>'}</div>
+    <h3>Escribir como administración</h3><div class="tb" style="flex-wrap:nowrap"><textarea id="as-txt" style="min-height:48px" placeholder="Mensaje oficial en esta sala…"></textarea><button class="btn pri" data-act="as-enviar">Enviar</button></div>`;
+};
+
+/* ---------- reportes ---------- */
+VIEWS.reportes = async () => {
+  const L = await adm('cf_a_reportes');
+  return `<p class="note">${L.filter(x => !x.resuelto).length} sin revisar</p>` + (L.map(r => `<div class="reg" style="${r.resuelto ? 'opacity:.55' : ''}"><header><b>🚩 ${esc(r.ncontra || 'Usuario')}</b><small class="mut">${fechaCorta(r.creado)}</small></header><div class="note">Reportado por <b>${esc(r.nde || '—')}</b>${r.motivo ? ': ' + esc(r.motivo) : ''}${r.texto ? `<br>💬 «${esc(r.texto)}»` : ''}</div>
+    <div class="pa"><button data-act="au-ver" data-id="${r.contra}">👁 Ver perfil</button><button data-act="au-conv" data-id="${r.contra}" data-n="${esc(r.ncontra || '')}">💬 Sus conversaciones</button><button class="del" data-act="au-exp" data-id="${r.contra}" data-n="${esc(r.ncontra || '')}">⛔ Expulsar</button><button data-act="rp-ok" data-id="${r.id}" data-v="${r.resuelto ? 0 : 1}">${r.resuelto ? 'Reabrir' : '✅ Resuelto'}</button></div></div>`).join('') || '<div class="empty">No hay reportes 🙏</div>');
+};
+
+/* ---------- fotos ---------- */
+VIEWS.fotos = async () => {
+  const f = CONF.fotos !== false, L = await adm('cf_a_fotos', { p_antes: null, p_limite: 60 });
+  return `<div class="reg"><b>📷 Subir fotos: ${f ? '<span class="pill ok">PERMITIDO</span>' : '<span class="pill err">BLOQUEADO</span>'}</b><div class="pa"><button data-act="fotos-global" data-v="${f ? 0 : 1}">${f ? '🔒 Bloquear fotos para todos' : '🔓 Permitir fotos'}</button></div><p class="note">También puedes quitar o dar el permiso a una persona en la pestaña Usuarios.</p></div>
+    <h3>Últimas fotos subidas</h3><p class="note">Toca una foto para verla grande. Puedes borrarla.</p>
+    <div class="gal">${L.map(x => `<div class="gi"><img src="${esc(x.thumb || '')}" data-act="adm-foto" data-id="${x.id}" title="${esc(x.nombre)}" alt=""><button data-act="adm-foto-del" data-id="${x.id}" aria-label="Borrar">✕</button></div>`).join('') || '<div class="empty" style="grid-column:1/-1">No hay fotos.</div>'}</div>`;
+};
+
+/* =====================================================================
+   AVISOS (burbuja y notificaciones) — igual que en la tienda
+   ===================================================================== */
+const MSGD = {};
+function msgEditor(p, m) {
+  m = m || {}; MSGD[p] = { img: m.img || '', audio: m.audio || '', grab: null }; const g = (k, d = '') => esc(m[k] ?? d);
+  return `<label class="fld"><span>Título (opcional)</span><input id="${p}-tit" value="${g('titulo')}"></label>
+   <label class="fld"><span>Mensaje</span><textarea id="${p}-txt" placeholder="Escribe aquí…">${g('texto')}</textarea></label>
+   <div class="emo" style="border:0;padding:0 0 10px;background:none">${EMOJIS.map(e => `<button type="button" data-act="emo-av" data-p="${p}" data-e="${e}">${e}</button>`).join('')}</div>
+   <div class="row3"><label class="fld"><span>Fondo</span><input type="color" id="${p}-col" value="${esc(hexOk(m.color) || '#c98a1b')}"></label><label class="fld"><span>Letra</span><input type="color" id="${p}-tcol" value="${esc(hexOk(m.txt) || '#ffffff')}"></label>
+   <label class="fld"><span>Tamaño</span><select id="${p}-tam">${TAMS.map(([k, n]) => `<option value="${k}" ${k === (m.tam || 'm') ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
+   <div class="row2"><label class="fld"><span>Tipo de letra</span><select id="${p}-fue">${FUENTES.map(([k, n]) => `<option value="${esc(k)}" ${k === (m.fuente || '') ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+   <label class="fld"><span>Forma</span><select id="${p}-for">${FORMAS.map(([k, n]) => `<option value="${k}" ${k === (m.forma || 'bocadillo') ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
+   <div class="fld"><span>Imagen (opcional)</span><div id="${p}-imgbox"></div><label class="btn sm ghost fileb">🖼 Elegir imagen<input type="file" id="${p}-imgf" accept="image/*"></label></div>
+   <div class="fld"><span>Nota de voz (opcional)</span><div id="${p}-audbox"></div><div class="tb"><button type="button" class="btn sm ghost" data-act="rec" data-p="${p}" id="${p}-rec">🎙 Grabar</button><label class="btn sm ghost fileb">⬆ Subir audio<input type="file" id="${p}-audf" accept="audio/*"></label></div></div>
+   <div class="row2"><label class="fld"><span>Enlace (opcional)</span><input id="${p}-url" value="${g('enlace')}" placeholder="https://…"></label><label class="fld"><span>Texto del botón</span><input id="${p}-urlt" value="${g('enlaceTxt')}" placeholder="Abrir enlace"></label></div>
+   <div class="fld"><span>Así se verá</span><div class="bm-prev" id="${p}-prev"></div></div>`;
+}
+function msgLeer(p) { const v = i => { const e = $('#' + p + '-' + i); return e ? e.value.trim() : ''; }, d = MSGD[p] || {}; return { titulo: v('tit'), texto: v('txt'), color: v('col'), txt: v('tcol'), tam: v('tam') || 'm', fuente: v('fue'), forma: v('for') || 'bocadillo', img: d.img || '', audio: d.audio || '', enlace: v('url'), enlaceTxt: v('urlt') }; }
+function msgPrev(p) { const b = $('#' + p + '-prev'); if (b) b.innerHTML = burbuja(msgLeer(p)); }
+function msgMediosUI(p) {
+  const d = MSGD[p], ib = $('#' + p + '-imgbox'), ab = $('#' + p + '-audbox'); if (!d || !ib) return;
+  ib.innerHTML = d.img ? `<span class="pfi"><img src="${esc(d.img)}" alt=""><button type="button" data-act="msg-quitar" data-p="${p}" data-k="img">✕</button></span>` : '<span class="note">Sin imagen.</span>';
+  ab.innerHTML = d.audio ? `<audio controls src="${esc(d.audio)}" style="width:100%"></audio><button type="button" class="btn sm danger" data-act="msg-quitar" data-p="${p}" data-k="audio" style="margin-top:6px">Quitar audio</button>` : '<span class="note">Sin nota de voz.</span>';
+  msgPrev(p);
+}
+async function msgPublicar(p) { const m = msgLeer(p); if (!hayMsg(m)) throw new Error('Escribe un mensaje, o agrega imagen, audio o enlace'); m.img = await subirMedio(m.img, 'imagenes'); m.audio = await subirMedio(m.audio, 'audio'); MSGD[p].img = m.img; MSGD[p].audio = m.audio; return m; }
+async function grabar(p, btn) {
+  const d = MSGD[p]; if (!d) return; if (d.grab) { d.grab.stop(); return; }
+  if (!navigator.mediaDevices || !window.MediaRecorder) return toast('Este navegador no puede grabar aquí. Usa «Subir audio».', 'err');
+  let s; try { s = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { return toast('Permite el micrófono para grabar', 'err'); }
+  const mt = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg'].find(t => MediaRecorder.isTypeSupported(t)) || '';
+  const rec = new MediaRecorder(s, mt ? { mimeType: mt } : undefined), parts = [], t0 = Date.now(); let iv;
+  rec.ondataavailable = e => { if (e.data.size) parts.push(e.data); };
+  rec.onstop = () => { clearInterval(iv); s.getTracks().forEach(t => t.stop()); d.grab = null; const b = $('#' + p + '-rec'); if (b) b.textContent = '🎙 Grabar'; const fr = new FileReader(); fr.onload = () => { d.audio = String(fr.result); msgMediosUI(p); }; fr.readAsDataURL(new Blob(parts, { type: rec.mimeType || mt || 'audio/webm' })); };
+  d.grab = rec; rec.start(); btn.textContent = '⏹ Parar (0:00)';
+  iv = setInterval(() => { const sec = Math.floor((Date.now() - t0) / 1000), b = $('#' + p + '-rec'); if (b) b.textContent = `⏹ Parar (${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')})`; if (sec >= 60 && rec.state === 'recording') rec.stop(); }, 500);
+}
+const extDe = m => ({ 'audio/webm': 'webm', 'audio/mp4': 'm4a', 'audio/mpeg': 'mp3', 'audio/ogg': 'ogg', 'audio/wav': 'wav', 'image/jpeg': 'jpg', 'image/png': 'png' })[String(m).split(';')[0]] || 'bin';
+async function subirMedio(du, carpeta, lim = 300000) {
+  if (!/^data:/.test(du || '')) return du || '';
+  const g = ghInfo();
+  if (g.u && g.r && g.token) { try { const path = carpeta + '/' + uid() + '.' + extDe(du.slice(5, du.indexOf(';'))); await gh('PUT', path, { message: 'Subir archivo', content: du.split(',')[1] }); return path; } catch (e) { if (du.length > lim) throw e; } }
+  if (du.length <= lim) return du; throw new Error('El archivo es muy grande. Configura GitHub (pestaña GitHub) o usa uno más pequeño.');
+}
+function nfRow(n) { return `<div class="reg"><header><span>${n.creado ? fechaCorta(n.creado) : ''}</span><span class="pill ${n.activa ? 'ok' : ''}">${n.activa ? 'publicada' : 'borrador'}</span></header>${burbuja(n)}<div class="pa"><button data-act="nf-edit" data-id="${esc(n.id)}">✏️ Editar</button><button data-act="nf-tog" data-id="${esc(n.id)}">${n.activa ? '⏸ Quitar de la página' : '📢 Publicar'}</button><button class="del" data-act="nf-del" data-id="${esc(n.id)}">🗑 Borrar</button></div></div>`; }
+let NFID = null;
+function nfForm(id) {
+  const n = id ? (CONF.notifs || []).find(x => x.id === id) : null; NFID = n ? n.id : null;
+  openModal(`<button class="x" data-act="cerrar">✕</button><h2>${n ? 'Editar' : 'Nueva'} notificación</h2><p class="note">Los visitantes la ven arriba y pueden quitarla.</p><div class="adm">${msgEditor('nf', n || {})}</div><div class="tb"><button class="btn pri" data-act="nf-save">📢 Publicar</button><button class="btn" data-act="nf-draft">Guardar sin publicar</button></div>`, 'full');
+  msgMediosUI('nf');
+}
+VIEWS.avisos = async () => {
+  const n = CONF.nota, L = CONF.notifs || [];
+  return `<h3>Aviso en burbuja</h3><p class="note">Aparece en la página de todos. Cada persona puede moverlo con el dedo o quitarlo; si publicas uno nuevo, vuelve a aparecer.</p>${msgEditor('av', n)}
+    <p class="note">Estado: ${n.activa && hayMsg(n) ? '🟢 publicado' : '⚪ sin aviso'}</p><div class="tb"><button class="btn pri" data-act="av-pub">Publicar aviso</button><button class="btn" data-act="av-quitar">Quitar aviso</button></div>
+    <h3>Notificaciones</h3><p class="note">Se muestran arriba de la página. Edítalas, cámbiales forma, color, letra y emojis.</p>${L.map(nfRow).join('') || '<p class="note">Todavía no hay notificaciones.</p>'}<div class="tb"><button class="btn sm pri" data-act="nf-nueva">➕ Nueva notificación</button></div>`;
+};
+
+/* ---------- apariencia ---------- */
+const temaBtns = c => [...Object.entries(THEMES), ['personalizado', { name: '🎨 Personalizado', ...temaDe({ tema: 'personalizado', custom: c.custom }) }]].map(([k, v]) => `<button type="button" class="tema-b ${c.tema === k ? 'on' : ''}" data-act="tema-pick" data-id="${k}">${esc(v.name)}<i><s style="background:${v.bg}"></s><s style="background:${v.card}"></s><s style="background:${v.pri}"></s><s style="background:${v.acc}"></s><s style="background:${v.txt}"></s></i></button>`).join('');
+VIEWS.aparien = async () => {
+  const c = CONF;
+  return `<h3>Nombre y textos</h3><div class="row2"><label class="fld"><span>Nombre de la página</span><input id="ap-nom" value="${esc(c.nombre)}"></label><label class="fld"><span>Lema</span><input id="ap-lema" value="${esc(c.lema)}"></label></div>
+    <label class="fld"><span>Mensaje de bienvenida</span><textarea id="ap-bien">${esc(c.bienvenida)}</textarea></label>
+    <h3>Logo</h3><div class="info" style="display:flex;gap:12px;align-items:center"><div style="width:70px">${c.logo ? `<img src="${esc(c.logo)}" style="width:70px;height:70px;object-fit:contain" alt="">` : LOGO_SVG}</div><span>${c.logo ? 'Logo propio' : 'Taza con cruz (por defecto)'}</span></div>
+    <div class="tb"><label class="btn ghost fileb">🖼 Cambiar logo<input type="file" id="ap-logo" accept="image/*"></label>${c.logo ? '<button class="btn ghost" data-act="logo-quitar">↩ Volver al logo original</button>' : ''}</div>
+    <h3>Tema de colores</h3><div class="tema-g">${temaBtns(c)}</div><input type="hidden" id="ap-tema" value="${esc(c.tema)}">
+    <p class="note">Para el tema «Personalizado», elige tus colores y luego toca 🎨 Personalizado:</p>
+    <div class="color-g">${[['bg', 'Fondo'], ['bg2', 'Fondo 2'], ['card', 'Tarjetas'], ['txt', 'Texto'], ['mut', 'Texto suave'], ['pri', 'Botones'], ['acc', 'Acento']].map(([k, n]) => `<label class="fld"><span>${n}</span><input type="color" id="apc-${k}" value="${esc(hexOk(c.custom[k]) || '#888888')}"></label>`).join('')}</div>
+    <div class="row2"><label class="fld"><span>Fondo animado</span><select id="ap-fondo">${[['rayos', '🌅 Rayos de luz'], ['nubes', '☁️ Nubes'], ['estrellas', '✨ Estrellas'], ['cruces', '✝️ Cuadrícula suave'], ['liso', 'Liso']].map(([k, n]) => `<option value="${k}" ${c.fondo === k ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+    <label class="fld"><span>Letra de los títulos</span><select id="ap-fuente">${[['elegante', 'Elegante'], ['manuscrita', 'Manuscrita'], ['moderna', 'Moderna'], ['clasica', 'Clásica']].map(([k, n]) => `<option value="${k}" ${c.fuente === k ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
+    <h3>Versículos del día</h3><p class="note">Uno por línea. Termina cada uno con « — Libro 1:1 ». Cambia automáticamente cada día.</p><textarea id="ap-vers" style="min-height:160px">${esc((c.versiculos || []).join('\n'))}</textarea>
+    <div class="tb"><button class="btn pri" data-act="ap-save">💾 Guardar apariencia</button></div>`;
+};
+
+/* ---------- ajustes ---------- */
+VIEWS.ajustes = async () => {
+  const c = merge((await adm('cf_a_config')) || {}, clone(DEFCONF));
+  return `<h3>Registro y seguridad</h3>${ck('aj-reg', c.registro !== false, 'Registro abierto (cualquiera puede crear cuenta)')}${ck('aj-apr', c.aprobar, 'Aprobar cada cuenta nueva antes de que pueda entrar')}${ck('aj-fotos', c.fotos !== false, '📷 Permitir subir fotos (perfil, galería y chat)')}
+    <div class="row2"><label class="fld"><span>Edad mínima (mínimo 18)</span><input id="aj-edad" type="number" min="18" max="60" value="${esc(Math.max(18, +c.edad_min || 18))}"></label><label class="fld"><span>Máximo de fotos por persona</span><input id="aj-maxf" type="number" min="0" max="30" value="${esc(c.max_fotos ?? 10)}"></label></div>
+    <label class="fld"><span>Palabras prohibidas (una por línea). Los mensajes o perfiles que las contengan se rechazan.</span><textarea id="aj-pal">${esc((c.palabras || []).join('\n'))}</textarea></label>
+    <h3>Reglas de la comunidad</h3><textarea id="aj-reglas" style="min-height:200px">${esc(c.reglas)}</textarea><p class="note">Al registrarse, cada persona acepta las reglas y que la administración puede revisar las conversaciones.</p>
+    <h3>Salas de conversación</h3><p class="note">Una por línea: <code>id|icono|nombre|descripción</code> (el id solo con letras minúsculas, números o guion). La sala «general» siempre existe.</p><textarea id="aj-salas" style="min-height:130px">${esc((c.salas || []).map(s => [s.id, s.icono, s.nombre, s.desc].join('|')).join('\n'))}</textarea>
+    <h3>Denominaciones</h3><p class="note">Una por línea.</p><textarea id="aj-den" style="min-height:130px">${esc((c.denominaciones || []).join('\n'))}</textarea>
+    <h3>Mantenimiento</h3>${ck('aj-mant', c.mant.activo, 'Pausar la página con un cartel')}<div class="row2"><label class="fld"><span>Emoji</span><input id="aj-me" value="${esc(c.mant.emoji)}" maxlength="4"></label><label class="fld"><span>Título</span><input id="aj-mt" value="${esc(c.mant.titulo)}"></label></div><label class="fld"><span>Mensaje</span><textarea id="aj-mp">${esc(c.mant.texto)}</textarea></label>
+    <div class="tb"><button class="btn pri" data-act="aj-save">💾 Guardar ajustes</button></div>`;
+};
+
+/* ---------- GitHub: actualizar la página y conexión ---------- */
+function ghInfo() {
+  const s = jget('tem_conn', {}); let u = s.user || CFG.GH_USER, r = s.repo || CFG.GH_REPO, b = s.branch || CFG.GH_BRANCH || 'main';
+  if (!u && location.hostname.endsWith('.github.io')) { u = location.hostname.split('.')[0]; r = location.pathname.split('/')[1] || (u + '.github.io'); }
+  return { u, r, b, token: localStorage.getItem('tem_gh_token') || '' };
+}
+async function gh(method, path, body) {
+  const g = ghInfo(); if (!g.u || !g.r) throw new Error('Falta el usuario o el repositorio de GitHub (pestaña GitHub)'); if (!g.token) throw new Error('Falta el token de GitHub (pestaña GitHub)');
+  const url = `https://api.github.com/repos/${g.u}/${g.r}/contents/${path}` + (method === 'GET' ? `?ref=${encodeURIComponent(g.b)}&t=${Date.now()}` : '');
+  const r = await fetch(url, { method, headers: { Authorization: 'Bearer ' + g.token, Accept: 'application/vnd.github+json' }, body: body ? JSON.stringify({ ...body, branch: g.b }) : undefined });
+  if (r.status === 404 && method === 'GET') return null;
+  if (!r.ok) { let m = ''; try { m = (await r.json()).message; } catch { } throw new Error('GitHub: ' + (m || r.status)); }
+  return r.json();
+}
+VIEWS.actualizar = async () => {
+  const g = ghInfo();
+  return `<h3>Subir la página editada desde aquí</h3><p class="note">Elige tu <code>index.html</code> ya editado y se publica en GitHub sin salir del panel. En 1 o 2 minutos todos ven la versión nueva. Antes de reemplazar se guarda una copia en la carpeta <code>respaldo/</code>.</p>
+    ${g.u && g.r && g.token ? `<div class="info">✅ Conectado a <b>${esc(g.u)}/${esc(g.r)}</b> (rama ${esc(g.b)})</div>` : '<div class="alerta">Falta la conexión con GitHub. Configúrala en la pestaña «GitHub».</div>'}
+    <label class="fld"><span>Archivo de la página en el repositorio</span><input id="up-path" value="index.html"></label><label class="fld"><span>Archivo HTML editado</span><input type="file" id="up-file" accept=".html,.htm,text/html"></label>
+    <div class="tb"><button class="btn pri" data-act="up-go">⬆ Publicar esta versión</button><button class="btn" data-act="up-bajar">⬇ Descargar la página actual</button></div><p id="up-res" class="note"></p>
+    <p class="note">Si subes un archivo sin este panel no podrás volver a entrar; restaura la copia desde <code>respaldo/</code> en GitHub.</p>`;
+};
+VIEWS.conexion = async () => {
+  const g = ghInfo();
+  return `<h3>Conexión con GitHub</h3><p class="note">Se usa para subir imágenes y audios de los avisos y para «Actualizar página». Si ya lo configuraste en tu tienda desde este mismo dominio, ya aparece aquí. Los datos se guardan solo en este teléfono.</p>
+    <div class="row2"><label class="fld"><span>Usuario de GitHub</span><input id="cx-user" value="${esc(g.u)}"></label><label class="fld"><span>Repositorio</span><input id="cx-repo" value="${esc(g.r)}"></label></div>
+    <div class="row2"><label class="fld"><span>Rama</span><input id="cx-branch" value="${esc(g.b)}"></label><label class="fld"><span>Token de GitHub</span><input id="cx-token" type="password" value="${esc(g.token)}" autocomplete="off"></label></div>
+    <div class="tb"><button class="btn pri" data-act="cx-save">Guardar</button><button class="btn" data-act="cx-tok-del">Borrar token</button></div>
+    <h3>Supabase</h3><div class="info">Usa el mismo proyecto de tu tienda:<br><code>${esc(CFG.SB_URL)}</code></div>`;
+};
+async function subirPagina(btn) {
+  const f = $('#up-file').files[0], path = ($('#up-path').value.trim() || 'index.html').replace(/^\/+/, ''), r = $('#up-res');
+  if (!f) return toast('Elige el archivo HTML', 'err'); if (!/^[\w./-]+\.html?$/i.test(path) || path.includes('..')) return toast('Nombre de archivo no válido', 'err');
+  const txt = await f.text(); if (!/<html[\s>]/i.test(txt) || !/<\/html>\s*$/i.test(txt.trim())) return toast('Ese archivo no parece una página completa', 'err');
+  if (!txt.includes('data-act="admin"') && !confirm('⚠️ Este archivo no parece tener el botón del panel. Si lo publicas no podrás volver a entrar al panel. ¿Publicar de todas formas?')) return;
+  if (!confirm('¿Publicar esta versión en «' + path + '»? Se guarda copia de la anterior.')) return;
+  btn.disabled = true; r.innerHTML = '<span class="spin"></span> Publicando…';
+  try {
+    const actual = await gh('GET', path);
+    if (actual && actual.content) { try { await gh('PUT', 'respaldo/' + new Date().toISOString().replace(/[:T]/g, '-').slice(0, 16) + '-' + path.split('/').pop(), { message: 'Respaldo', content: actual.content.replace(/\s/g, '') }); } catch { } }
+    await gh('PUT', path, { message: 'Actualizar página desde el panel', content: u8b64(new Uint8Array(await f.arrayBuffer())), ...(actual && actual.sha ? { sha: actual.sha } : {}) });
+    r.textContent = '✅ Publicada. En 1 o 2 minutos todos verán la nueva versión.'; toast('Página publicada', 'ok');
+  } catch (e) { r.textContent = '❌ ' + e.message; } finally { btn.disabled = false; }
+}
+async function bajarPagina() {
+  let blob; try { const r = await fetch(location.href.split('#')[0], { cache: 'no-store' }); blob = await r.blob(); } catch { return toast('No se pudo descargar', 'err'); }
+  const u = URL.createObjectURL(blob), l = document.createElement('a'); l.href = u; l.download = 'index.html'; l.click(); setTimeout(() => URL.revokeObjectURL(u), 2000);
+}
+
+/* =====================================================================
+   EVENTOS Y ARRANQUE
+   ===================================================================== */
+async function ajustarFoto(f, max, q, lim) { let d = await comprimir(f, max, q); if (d.length > lim) d = await comprimir(f, Math.round(max * .75), q - .1); if (d.length > lim) d = await comprimir(f, Math.round(max * .55), .55); return d; }
+function logoImg(f) { return new Promise((res, rej) => { const im = new Image(), u = URL.createObjectURL(f); im.onload = () => { const k = Math.min(1, 300 / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.max(1, Math.round(im.width * k)); c.height = Math.max(1, Math.round(im.height * k)); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); res(c.toDataURL('image/png')); }; im.onerror = () => rej(new Error('No se pudo leer la imagen')); im.src = u; }); }
+const leerCustom = () => { const C = CONF.custom || {}, v = (k, d) => { const e = $('#apc-' + k); return e ? e.value : d; }; return { bg: v('bg', C.bg), bg2: v('bg2', C.bg2), card: v('card', C.card), txt: v('txt', C.txt), mut: v('mut', C.mut), pri: v('pri', C.pri), acc: v('acc', C.acc) }; };
+let LH = null;
+const refrescarAdmin = el => { if (el && AM && el.closest('.ov') !== AM && LH) verHilo(LH.a, LH.b, LH.na, LH.nb, el.closest('.ov')); else admRender(); };
+
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const a = el.dataset.act, id = el.dataset.id;
+  if (el.tagName === 'A') e.preventDefault();
+  try { await onClick(a, el, id, e); } catch (er) { toast(er.red ? 'Sin conexión' : er.message, 'err'); }
+});
+async function onClick(a, el, id) {
+  switch (a) {
+    case 'cerrar': closeModal(el.closest('.ov')); break;
+    case 'login': loginModal(); break;
+    case 'login-ok': hacerLogin(el); break;
+    case 'reg-abrir': closeModal($$('.ov').pop()); registroModal(); break;
+    case 'reg-ok': hacerRegistro(el); break;
+    case 'chip': toggleChip(el); break;
+    case 'tab': VIEW = id; render(); break;
+    case 'perfil': verPerfil(+id); break;
+    case 'escribir': closeModal(el.closest('.ov')); abrirChat({ tipo: 'priv', otro: +id, titulo: el.dataset.n }); break;
+    case 'priv': abrirChat({ tipo: 'priv', otro: +id, titulo: el.dataset.n }); break;
+    case 'sala': { const s = (CONF.salas || []).find(x => x.id === id) || DEFCONF.salas[0]; abrirChat({ tipo: 'sala', sala: s.id, titulo: (s.icono || '') + ' ' + s.nombre, desc: s.desc }); break; }
+    case 'chat-x': cerrarChat(); break;
+    case 'enviar': enviarMsg(); break;
+    case 'emo-t': { const b = $('#emo'); b.hidden = !b.hidden; break; }
+    case 'emo': { const ta = $('#chat-txt'); ta.value += el.dataset.e; ta.focus(); break; }
+    case 'ver-img': verImagenMsg(+id, el); break;
+    case 'rep-msg': { const m = prompt('¿Por qué quieres reportar este mensaje?'); if (m === null) break; await api('cf_reportar', { p_contra: +el.dataset.de, p_motivo: m, p_mensaje: +id }); toast('Gracias. La administración lo revisará 🙏', 'ok'); break; }
+    case 'reportar': { const m = prompt('¿Por qué quieres reportar a esta persona?'); if (m === null) break; await api('cf_reportar', { p_contra: +id, p_motivo: m, p_mensaje: null }); toast('Gracias. La administración lo revisará 🙏', 'ok'); break; }
+    case 'bloquear': if (confirm('¿Bloquear a esta persona? No podrán verse ni escribirse.')) { await api('cf_bloquear', { p_id: +id, p_on: true }); await cargarYo(); closeModal(el.closest('.ov')); toast('Persona bloqueada', 'ok'); PEOPLE = []; if (VIEW === 'personas') cargarPersonas(true); } break;
+    case 'foto': { const d = await api('cf_foto', { p_id: +id }); if (d) zoomImg(d); break; }
+    case 'foto-del': if (confirm('¿Borrar esta foto?')) { await api('cf_borrar_foto', { p_id: +id }); await cargarYo(); cargarMisFotos(); } break;
+    case 'zoom': zoomImg(el.dataset.src || el.getAttribute('src')); break;
+    case 'editar': editarModal(); break;
+    case 'ed-ok': guardarPerfil(el); break;
+    case 'cambiar-pass': openModal(`<button class="x" data-act="cerrar">✕</button><h2>Cambiar contraseña</h2><label class="fld"><span>Contraseña actual</span><input id="cp-a" type="password"></label><label class="fld"><span>Contraseña nueva</span><input id="cp-n" type="password" placeholder="mínimo 6"></label><button class="btn pri block" data-act="cp-ok">Guardar</button>`); break;
+    case 'cp-ok': await api('cf_cambiar_pass', { p_actual: val('cp-a'), p_nueva: val('cp-n') }); closeModal(el.closest('.ov')); toast('Contraseña cambiada', 'ok'); break;
+    case 'bloqueados': {
+      const m = openModal('<div class="empty"><span class="spin"></span></div>'); const ids = ME.bloqueados || [];
+      const L = ids.length ? await api('cf_minis', { p_ids: ids }) : [];
+      $('.box', m).innerHTML = `<button class="x" data-act="cerrar">✕</button><h2>Personas bloqueadas</h2>${L.map(u => `<div class="lst" style="cursor:default">${avatarHTML(u.thumb, u.nombre)}<span class="t"><b>${esc(u.nombre)}</b></span><button class="btn sm" data-act="desbloquear" data-id="${u.id}">Desbloquear</button></div>`).join('') || '<div class="empty">No has bloqueado a nadie.</div>'}`; break;
+    }
+    case 'desbloquear': await api('cf_bloquear', { p_id: +id, p_on: false }); await cargarYo(); closeModal(el.closest('.ov')); toast('Desbloqueada', 'ok'); break;
+    case 'salir': if (confirm('¿Cerrar sesión?')) { try { await rpc('cf_salir', { p_token: TOKEN }); } catch { } clearInterval(PULSO); cerrarSesion(); } break;
+    case 'borrar-cuenta': { const p = prompt('Para eliminar tu cuenta para siempre, escribe tu contraseña:'); if (!p) break; await api('cf_borrar_cuenta', { p_pass: p }); clearInterval(PULSO); cerrarSesion(); toast('Tu cuenta fue eliminada', 'ok'); break; }
+    case 'f-limpiar': FIL = { q: '', genero: '', edad_min: '', edad_max: '', provincia: '', denominacion: '', busca: '' }; render(); break;
+    case 'p-mas': cargarPersonas(false); break;
+    case 'nota-x': localStorage.setItem('cf_nota', CONF.nota.id); renderNota(); break;
+    case 'nx-x': NXD.push(id); NXD = NXD.slice(-60); localStorage.setItem('cf_nx', JSON.stringify(NXD)); renderNx(); break;
+    case 'boot-re': $('#btRe').hidden = true; $('#btTxt').textContent = 'Buscando conexión…'; await cargarConf(); LISTO = true; renderBoot(); render(); break;
+    /* ----- administrador ----- */
+    case 'admin': abrirAdmin(); break;
+    case 'admin-ok': { const p = $('#ad-pass').value; if (!p) break; el.disabled = true; try { if (await adminLogin(p)) { closeModal(el.closest('.ov')); mostrarAdmin(); } else { el.disabled = false; toast('Contraseña incorrecta', 'err'); } } catch (er) { el.disabled = false; toast(er.red ? 'Sin conexión' : 'Contraseña incorrecta', 'err'); } break; }
+    case 'adm-cerrar': closeModal(AM); AM = null; break;
+    case 'adm-tab': admTab = id; if (el.dataset.estado !== undefined) ADMQ.estado = el.dataset.estado; admRender(); break;
+    case 'fotos-global': await guardarConf(c => { c.fotos = el.dataset.v === '1'; }, el.dataset.v === '1' ? 'Fotos permitidas' : 'Fotos bloqueadas'); admRender(); break;
+    case 'registro-global': await guardarConf(c => { c.registro = el.dataset.v === '1'; }, 'Listo'); admRender(); break;
+    case 'mant-tog': case 'mn-off': await guardarConf(c => { c.mant.activo = a === 'mant-tog' ? !c.mant.activo : false; }, 'Listo'); admRender(); break;
+    case 'au-ver': verUsuarioAdmin(+id); break;
+    case 'au-conv': { ADMQ.conv = el.dataset.n || ''; admTab = 'conv'; $$('.ov').forEach(o => { if (o !== AM) closeModal(o); }); admRender(); break; }
+    case 'au-apr': accionUsuario(id, 'aprobar', '', 'Cuenta aprobada'); break;
+    case 'au-react': accionUsuario(id, 'reactivar', '', 'Cuenta reactivada'); break;
+    case 'au-exp': { const m = prompt('Motivo de la expulsión de ' + (el.dataset.n || 'esta persona') + ' (lo verá la persona):', 'Incumplir las reglas de la comunidad'); if (m === null) break; await accionUsuario(id, 'expulsar', m, 'Usuario expulsado'); break; }
+    case 'au-fotos': accionUsuario(id, el.dataset.v, '', el.dataset.v === 'fotos_on' ? 'Puede subir fotos' : 'Ya no puede subir fotos'); break;
+    case 'au-pass': { const p = prompt('Nueva contraseña para esta persona (mínimo 6):'); if (!p) break; accionUsuario(id, 'pass', p, 'Contraseña cambiada'); break; }
+    case 'au-del': if (confirm('¿Eliminar para siempre a ' + (el.dataset.n || 'esta persona') + ' y todos sus mensajes y fotos?')) accionUsuario(id, 'borrar', '', 'Usuario eliminado'); break;
+    case 'au-nota': await accionUsuario(id, 'nota', val('au-nota'), 'Nota guardada'); break;
+    case 'au-qfp': if (confirm('¿Quitar su foto de perfil?')) { await accionUsuario(id, 'quitar_foto_perfil', '', 'Foto quitada'); closeModal(el.closest('.ov')); } break;
+    case 'ac-hilo': LH = { a: el.dataset.a, b: el.dataset.b, na: el.dataset.na, nb: el.dataset.nb }; verHilo(LH.a, LH.b, LH.na, LH.nb, el.dataset.re ? el.closest('.ov') : undefined); break;
+    case 'adm-img': { const im = await adm('cf_a_imagen', { p_id: +id }); if (im) el.outerHTML = `<img class="full" src="${esc(im)}" data-act="zoom" alt="">`; else el.textContent = 'No disponible'; break; }
+    case 'adm-foto': { const d = await adm('cf_a_foto', { p_id: +id }); if (d) zoomImg(d); break; }
+    case 'adm-foto-del': if (confirm('¿Borrar esta foto?')) { await adm('cf_a_foto_borrar', { p_id: +id }); admRender(); } break;
+    case 'adm-msg-del': await adm('cf_a_borrar_msg', { p_id: +id, p_borrar: el.dataset.v === '1' }); refrescarAdmin(el); break;
+    case 'as-enviar': { const t = val('as-txt'); if (!t) break; await adm('cf_a_enviar', { p_sala: ADMQ.sala, p_texto: t }); toast('Enviado', 'ok'); admRender(); break; }
+    case 'rp-ok': await adm('cf_a_reporte_ok', { p_id: +id, p_ok: el.dataset.v === '1' }); admRender(); break;
+    case 'emo-av': { const ta = $('#' + el.dataset.p + '-txt'); if (!ta) break; const s = ta.selectionStart ?? ta.value.length, e2 = ta.selectionEnd ?? s; ta.value = ta.value.slice(0, s) + el.dataset.e + ta.value.slice(e2); ta.focus(); ta.selectionStart = ta.selectionEnd = s + el.dataset.e.length; msgPrev(el.dataset.p); break; }
+    case 'rec': grabar(el.dataset.p, el); break;
+    case 'msg-quitar': { const d = MSGD[el.dataset.p]; if (d) { d[el.dataset.k] = ''; msgMediosUI(el.dataset.p); } break; }
+    case 'av-pub': { try { const m = await msgPublicar('av'); await guardarConf(c => { c.nota = { ...m, activa: true, id: uid() }; }, 'Aviso publicado'); admRender(); } catch (er) { toast(er.message, 'err'); } break; }
+    case 'av-quitar': await guardarConf(c => { c.nota.activa = false; }, 'Aviso quitado'); admRender(); break;
+    case 'nf-nueva': nfForm(null); break;
+    case 'nf-edit': nfForm(id); break;
+    case 'nf-tog': await guardarConf(c => { const n = (c.notifs || []).find(x => x.id === id); if (n) { n.activa = !n.activa; if (n.activa) n.id = uid(); } }, 'Listo'); admRender(); break;
+    case 'nf-del': if (confirm('¿Borrar esta notificación?')) { await guardarConf(c => { c.notifs = (c.notifs || []).filter(x => x.id !== id); }, 'Borrada'); admRender(); } break;
+    case 'nf-save': case 'nf-draft': {
+      el.disabled = true;
+      try { const m = await msgPublicar('nf'), pub = a === 'nf-save'; await guardarConf(c => { const L = c.notifs = c.notifs || [], x = NFID && L.find(y => y.id === NFID); if (x) Object.assign(x, m, { activa: pub, id: pub ? uid() : x.id }); else L.unshift({ ...m, id: uid(), activa: pub, creado: Date.now() }); }, pub ? 'Notificación publicada' : 'Guardada'); closeModal(el.closest('.ov')); admRender(); }
+      catch (er) { toast(er.message, 'err'); el.disabled = false; }
+      break;
+    }
+    case 'tema-pick': { const h = $('#ap-tema'); if (!h) break; h.value = id; $$('.tema-b').forEach(b => b.classList.toggle('on', b.dataset.id === id)); pintarTema(temaDe({ tema: id, custom: leerCustom() }), $('#ap-fondo').value, $('#ap-fuente').value); break; }
+    case 'ap-save': await guardarConf(c => { c.nombre = val('ap-nom') || 'CaféConFé'; c.lema = val('ap-lema'); c.bienvenida = val('ap-bien'); c.tema = val('ap-tema'); c.custom = leerCustom(); c.fondo = val('ap-fondo'); c.fuente = val('ap-fuente'); c.versiculos = lineas($('#ap-vers').value); }, 'Apariencia guardada'); admRender(); break;
+    case 'logo-quitar': await guardarConf(c => { c.logo = ''; }, 'Logo original'); admRender(); break;
+    case 'aj-save': {
+      const salas = lineas($('#aj-salas').value).map(l => { const p = l.split('|').map(x => x.trim()); return { id: (p[0] || '').toLowerCase(), icono: p[1] || '💬', nombre: p[2] || p[0], desc: p[3] || '' }; }).filter(s => /^[a-z0-9_-]{1,30}$/.test(s.id));
+      if (!salas.some(s => s.id === 'general')) salas.unshift(DEFCONF.salas[0]);
+      await guardarConf(c => { c.registro = $('#aj-reg').checked; c.aprobar = $('#aj-apr').checked; c.fotos = $('#aj-fotos').checked; c.edad_min = Math.max(18, +val('aj-edad') || 18); c.max_fotos = Math.max(0, +val('aj-maxf') || 0); c.palabras = lineas($('#aj-pal').value); c.reglas = $('#aj-reglas').value.trim(); c.salas = salas; c.denominaciones = lineas($('#aj-den').value); c.mant = { activo: $('#aj-mant').checked, emoji: val('aj-me') || '🛠️', titulo: val('aj-mt'), texto: $('#aj-mp').value.trim() }; }, 'Ajustes guardados'); admRender(); break;
+    }
+    case 'up-go': subirPagina(el); break;
+    case 'up-bajar': bajarPagina(); break;
+    case 'cx-save': localStorage.setItem('tem_conn', JSON.stringify({ user: val('cx-user'), repo: val('cx-repo'), branch: val('cx-branch') || 'main' })); if (val('cx-token')) localStorage.setItem('tem_gh_token', val('cx-token')); toast('Guardado en este teléfono', 'ok'); admRender(); break;
+    case 'cx-tok-del': localStorage.removeItem('tem_gh_token'); toast('Token borrado', 'ok'); admRender(); break;
+  }
+}
+let DEB = {};
+const deb = (k, f, ms = 450) => { clearTimeout(DEB[k]); DEB[k] = setTimeout(f, ms); };
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (/^(av|nf)-/.test(t.id)) msgPrev(t.id.slice(0, 2));
+  else if (t.id.startsWith('apc-')) { const h = $('#ap-tema'); if (h && h.value === 'personalizado') pintarTema(temaDe({ tema: 'personalizado', custom: leerCustom() }), $('#ap-fondo').value, $('#ap-fuente').value); }
+  else if (t.id === 'f-q') { FIL.q = t.value.trim(); deb('f', () => cargarPersonas(true)); }
+  else if (t.id === 'f-edad_min' || t.id === 'f-edad_max') { FIL[t.id.slice(2)] = t.value; deb('f', () => cargarPersonas(true)); }
+  else if (t.id === 'au-q') { ADMQ.q = t.value.trim(); deb('au', async () => { const L = await VIEWS.usuarios(); if (admTab === 'usuarios') { $('#admBody').innerHTML = L; const q = $('#au-q'); q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }); }
+  else if (t.id === 'ac-q') { ADMQ.conv = t.value.trim(); deb('ac', async () => { const L = await VIEWS.conv(); if (admTab === 'conv') { $('#admBody').innerHTML = L; const q = $('#ac-q'); q.focus(); q.setSelectionRange(q.value.length, q.value.length); } }); }
+});
+document.addEventListener('change', async e => {
+  const t = e.target, f = t.files && t.files[0];
+  try {
+    if (/^(av|nf)-/.test(t.id) && t.type !== 'file') return msgPrev(t.id.slice(0, 2));
+    if (t.id.startsWith('f-')) { FIL[t.id.slice(2)] = t.value; return cargarPersonas(true); }
+    if (t.id === 'au-estado') { ADMQ.estado = t.value; return admRender(); }
+    if (t.id === 'as-sala') { ADMQ.sala = t.value; return admRender(); }
+    if ((t.id === 'ap-fondo' || t.id === 'ap-fuente') && $('#ap-tema')) return pintarTema(temaDe({ tema: val('ap-tema'), custom: leerCustom() }), val('ap-fondo'), val('ap-fuente'));
+    if (!f) return;
+    if (t.id === 'rg-foto' || t.id === 'ed-foto') {
+      const [a, th] = await Promise.all([cuadrada(f, 360, .78), cuadrada(f, 120, .7)]); RG.avatar = a; RG.thumb = th; t.value = '';
+      const box = $(t.id === 'rg-foto' ? '#rg-av' : '#ed-av'); if (box) box.innerHTML = `<img src="${a}" alt="">`;
+    } else if (t.id === 'gal-file') {
+      t.value = ''; toast('Subiendo foto…');
+      const [d, th] = await Promise.all([ajustarFoto(f, 900, .75, 240000), cuadrada(f, 200, .7)]);
+      await api('cf_subir_foto', { p_data: d, p_thumb: th }); await cargarYo(); cargarMisFotos(); toast('Foto agregada', 'ok');
+    } else if (t.id === 'chat-foto') { t.value = ''; toast('Enviando foto…'); enviarMsg(await ajustarFoto(f, 800, .72, 200000)); }
+    else if (/^(av|nf)-imgf$/.test(t.id)) { const p = t.id.slice(0, 2); MSGD[p].img = await comprimir(f, 900, .8); msgMediosUI(p); t.value = ''; }
+    else if (/^(av|nf)-audf$/.test(t.id)) { const p = t.id.slice(0, 2); t.value = ''; if (f.size > 3 * 1048576) return toast('El audio pesa más de 3 MB', 'err'); const fr = new FileReader(); fr.onload = () => { MSGD[p].audio = String(fr.result); msgMediosUI(p); }; fr.readAsDataURL(f); }
+    else if (t.id === 'ap-logo') { t.value = ''; toast('Subiendo logo…'); const du = await logoImg(f), path = await subirMedio(du, 'imagenes', 200000); await guardarConf(c => { c.logo = path; }, 'Logo cambiado'); admRender(); }
+  } catch (er) { toast(er.red ? 'Sin conexión' : er.message, 'err'); }
+});
+addEventListener('online', async () => { await cargarConf(); if (TOKEN && !ME) { try { await cargarYo(); render(); iniciarPulso(); } catch { } } });
+addEventListener('offline', () => { NETFAIL = true; renderBoot(); });
+
+/* ---------- arranque ---------- */
+(async () => {
+  $('#btLogo').innerHTML = LOGO_SVG;
+  LISTO = !!localStorage.getItem('cf_conf'); aplicarConf(); renderBoot();
+  if (TOKEN) { try { await cargarYo(); } catch (e) { if (e.red) NETFAIL = true; } }
+  await cargarConf(); LISTO = true; render(); renderBoot();
+  if (TOKEN && ME) iniciarPulso();
+  setInterval(() => { if (!document.hidden) cargarConf(); }, 60000);
+})();
+
+</script>
+</body>
+</html>
